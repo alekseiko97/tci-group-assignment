@@ -19,7 +19,7 @@ public class GamingMachine {
     }
 
     public double placeBet(BetRound betRound, double inAmount) {
-        return betRound.placeBet(inAmount);
+        return betRound.placeBet(new Bet(inAmount));
     }
 
 
