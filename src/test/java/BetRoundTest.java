@@ -3,6 +3,8 @@ import org.junit.Test;
 
 import java.time.DayOfWeek;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import java.time.LocalDateTime;
@@ -115,7 +117,19 @@ public class BetRoundTest {
      */
     @Test
     public void listOfPlacedBetsShouldBeReturnedSuccessfully(){
+        //arrange
+        BetRound round = new BetRound();
+        Bet bet1 = new Bet();
+        Bet bet2 = new Bet();
+        List<Bet> expectedResult = new ArrayList<>();
+        expectedResult.add(bet1);
+        expectedResult.add(bet2);
 
+        //act
+        List<Bet> actualResult = round.getListOfBet();
+
+        //assert
+        Assert.assertEquals("List of Bets is not returned correctly", expectedResult, actualResult);
     }
 
 
