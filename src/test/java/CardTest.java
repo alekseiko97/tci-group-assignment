@@ -1,14 +1,23 @@
+import org.junit.Assert;
 import org.junit.Test;
+import java.time.LocalDateTime;
 
-public class GamblerTest {
+public class CardTest {
 
     /**
-     *test should pass when provided card is returned to cashier
-     *testing method void returnCardToCashier(Card card)
+     *Test should pass when card details(timestamp & list of bets) are reset
+     *This is to test the behaviour of method void returnCardToCashier()
      */
     @Test
-    public void cardSuccessfullyReturnsToCashier()
+    public void cardSuccessfullyReturnedToCashier()
     {
+        //arrange
+        Card card = new Card();
+        //act
+        card.returnCardToCashier();
+        //assert
+        Assert.assertEquals(0, card.getListOfBets().size());
+        Assert.assertEquals(null, card.getTimestamp());
     }
 
     /**
@@ -18,6 +27,7 @@ public class GamblerTest {
     @Test
     public void successfullyDepositMoneyInCard()
     {
+
     }
 
 
