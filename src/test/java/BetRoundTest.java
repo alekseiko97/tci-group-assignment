@@ -59,7 +59,14 @@ public class BetRoundTest {
      */
     @Test
     public void placeBetInBetRoundShouldReturnBetValueSuccessful(){
-       
+       //arrange
+        Bet bet = new Bet();
+        BetRound round = new BetRound();
+        Double expectedResult = 200.0;
+        //act
+        Double actualResult = round.placeBet(bet,200.0);
+        //assert
+        Assert.assertEquals("Bet amount is not returned correctly when a bet is placed", expectedResult, actualResult);
     }
 
     /**
