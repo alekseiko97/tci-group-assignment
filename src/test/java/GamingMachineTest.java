@@ -3,20 +3,20 @@ import org.junit.Test;
 
 public class GamingMachineTest {
 
-    /**
-     * test should pass when place a bet is placed by providing betRound
-     * testing method double placeBet(BetRound betRound)
-     */
+    GameType gameType = GameType.BlackJack;
+    GamingMachine gm = new GamingMachine(gameType);
+    Casino casino = new Casino();
+    BetRound betRound = casino.createBetRound();
 
-    double AMOUNT = 50.0;
+    /**
+     * Test should pass when place a bet is placed by providing betRound
+     * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
+     */
 
     @Test
     public void gamingMachineCanPlaceBetOnBettingRound() {
         // arrange
-        GameType gameType = GameType.BlackJack;
-        GamingMachine gm = new GamingMachine(gameType);
-        Casino casino = new Casino();
-        BetRound betRound = casino.createBetRound();
+        double AMOUNT = 50.0;
 
         // act
         gm.placeBet(betRound, AMOUNT);
@@ -25,15 +25,17 @@ public class GamingMachineTest {
         Assert.assertEquals(1, betRound.getListOfBets().size());
     }
 
-
     /**
-     * test should pass when throws exception in case of betAmount is incorrect while placing a bet
-     * testing method double placeBet(BetRound betRound)
+     * Test should pass when exception is thrown in case of betAmount is incorrect while placing a bet
+     * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenBetAmountIsInCorrectWhilePlacingABet() {
-
+    public void betAmountLessThanZeroShouldThrowAnException() {
+        // act
+        gm.placeBet(betRound, -1.0);
     }
+
+
 
 
     /**
