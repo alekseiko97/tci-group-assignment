@@ -1,9 +1,13 @@
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.time.DayOfWeek;
+import java.time.Month;
 import java.util.UUID;
 
 import java.time.LocalDateTime;
 
+import static org.mockito.Mockito.verify;
 
 
 public class BetRoundTest {
@@ -18,12 +22,15 @@ public class BetRoundTest {
         //arrange
         Bet bet = new Bet();
         BetRound round = new BetRound();
-        LocalDateTime expectedResult = LocalDateTime.now();
+        DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
+        Month expectedMonth = LocalDateTime.now().getMonth();
+        int expectedHour = LocalDateTime.now().getHour();
         //act
         LocalDateTime actualResult = round.startRound(bet);
-
         //assert
-        Assert.assertEquals("Start Date is not returned successful!",expectedResult,actualResult);
+        Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
+        Assert.assertEquals(expectedMonth, actualResult.getMonth());
+        Assert.assertEquals(expectedHour, actualResult.getHour());
     }
 
     /**
