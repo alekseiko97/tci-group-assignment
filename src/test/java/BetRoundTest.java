@@ -80,7 +80,7 @@ public class BetRoundTest {
         String expectedResult = "TokenBetRound1";
         BetRound round = new BetRound();
         //act
-        round.setToken(token);
+        round.setToken(expectedResult);
         String actualResult = round.getToken();
 
         //assert
