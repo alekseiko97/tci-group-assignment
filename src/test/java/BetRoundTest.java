@@ -1,15 +1,49 @@
+import org.junit.Assert;
 import org.junit.Test;
+import java.util.UUID;
+
+import java.time.LocalDateTime;
+
+
+
 public class BetRoundTest {
 
+
     /**
-     * This test should be passed when a gambler places a bet successfully via the gaming machine
-     * This test is created to test double placeBet(Bet bet, double betAmount) method
+     * This test should be passed when a round starts and returns the date value
+     * This test is created to test LocalDateTime startRound(Bet bet) method
      */
     @Test
-    public void betPlacedSuccessfulByAGambler(){
+    public void startingBetRoundShouldReturnDateSuccessful(){
+        //arrange
+        Bet bet = new Bet();
+        BetRound round = new BetRound();
+        LocalDateTime expectedResult = LocalDateTime.now();
+        //act
+        LocalDateTime actualResult = round.startRound(bet);
+
+        //assert
+        Assert.assertEquals("Start Date is not returned successful!",expectedResult,actualResult);
+    }
+
+    /**
+     * This test should be passed when a round ends and returns the date value
+     * This test is created to test LocalDateTime endRound(Cashier c, Double amount) method
+     */
+    @Test
+    public void endingBetRoundShouldReturnDateSuccessful(){
 
     }
 
+
+    /**
+     * This test should be passed when Bet Value is returned when a bet is placed successfully
+     * This test is created to test double placeBet(Bet bet, double betAmount) method
+     */
+    @Test
+    public void placeBetInBetRoundShouldReturnBetValueSuccessful(){
+       
+    }
 
     /**
      * This test should be passed when a token is set successfully to the betting round when betting authority acquires
