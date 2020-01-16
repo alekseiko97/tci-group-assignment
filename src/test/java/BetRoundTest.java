@@ -76,6 +76,15 @@ public class BetRoundTest {
      */
     @Test
     public void tokenIsSetSuccessfullyToBettingRound(){
+        //arrange
+        String expectedResult = "TokenBetRound1";
+        BetRound round = new BetRound();
+        //act
+        round.setToken(token);
+        String actualResult = round.getToken();
+
+        //assert
+        Assert.assertEquals("Token is not set correctly", expectedResult, actualResult);
 
     }
 
