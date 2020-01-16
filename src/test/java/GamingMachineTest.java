@@ -1,14 +1,28 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 public class GamingMachineTest {
-
 
     /**
      * test should pass when place a bet is placed by providing betRound
      * testing method double placeBet(BetRound betRound)
      */
+
+    double AMOUNT = 50.0;
+
     @Test
-    public void successfullyPlaceABet() {
+    public void gamingMachineCanPlaceBetOnBettingRound() {
+        // arrange
+        GameType gameType = GameType.Blackjack;
+        GamingMachine gm = new GamingMachine(gameType);
+        Casino casino = new Casino();
+        BetRound betRound = casino.createBetRound();
+
+        // act
+        gm.placeBet(betRound, AMOUNT);
+
+        // assert
+        Assert.assertEquals(1, betRound.getListOfBets().size());
     }
 
 
@@ -18,6 +32,7 @@ public class GamingMachineTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenBetAmountIsInCorrectWhilePlacingABet() {
+
     }
 
 
