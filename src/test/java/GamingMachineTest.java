@@ -13,7 +13,7 @@ public class GamingMachineTest {
     @Test
     public void gamingMachineCanPlaceBetOnBettingRound() {
         // arrange
-        GameType gameType = GameType.Blackjack;
+        GameType gameType = GameType.BlackJack;
         GamingMachine gm = new GamingMachine(gameType);
         Casino casino = new Casino();
         BetRound betRound = casino.createBetRound();
