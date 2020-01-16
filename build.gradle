@@ -8,7 +8,7 @@ plugins {
     id 'java'
 }
 
-group 'com.fontys'
+group 'tci-group-assignment'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
