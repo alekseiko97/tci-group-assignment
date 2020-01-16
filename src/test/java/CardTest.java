@@ -17,8 +17,24 @@ public class CardTest {
         card.returnCardToCashier();
         //assert
         Assert.assertEquals(0, card.getListOfBets().size());
-        Assert.assertEquals(null, card.getTimestamp());
+        Assert.assertNull(card.getTimestamp());
     }
+
+    /**
+     *Test should pass when card tries to connect with a valid gaming machine
+     *This is to test the behaviour of method void connectToGamingMachine()
+     */
+    @Test
+    public void cardIsConnectedToGamingMachineWithValidGameType()
+    {
+        //arrange
+        Card card = new Card();
+        //act
+        boolean result = card.connectToGamingMachine(GameType.BlackJack);
+        //assert
+        Assert.assertEquals(true, result);
+    }
+
 
     /**
      *test should pass when money is deposited in the provided card with provided amount
