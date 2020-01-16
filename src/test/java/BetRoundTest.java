@@ -39,7 +39,17 @@ public class BetRoundTest {
      */
     @Test
     public void endingBetRoundShouldReturnDateSuccessful(){
-
+        Bet bet = new Bet();
+        BetRound round = new BetRound();
+        DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
+        Month expectedMonth = LocalDateTime.now().getMonth();
+        int expectedHour = LocalDateTime.now().getHour();
+        //act
+        LocalDateTime actualResult = round.endRound(bet);
+        //assert
+        Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
+        Assert.assertEquals(expectedMonth, actualResult.getMonth());
+        Assert.assertEquals(expectedHour, actualResult.getHour());
     }
 
 
