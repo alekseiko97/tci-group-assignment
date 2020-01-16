@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+
 public class GamingMachineTest {
 
     GameType gameType = GameType.BlackJack;
@@ -33,6 +35,23 @@ public class GamingMachineTest {
     public void betAmountLessThanZeroShouldThrowAnException() {
         // act
         gm.placeBet(betRound, -1.0);
+    }
+
+    /**
+     * Test should pass if the card can be added to the list of connected cards on a gaming machine
+     * This is to test the behavior of the method addCardToConnectedCards(Card c)
+     */
+
+    @Test
+    public void cardCanBeConnectedToGamblingMachine() {
+        // arrange
+        Card card = mock(Card.class);
+
+        // act
+        gm.addCardToConnectedCards(card);
+
+        // assert
+        Assert.assertEquals(1, gm.getListOfConnectedCards().size());
     }
 
 
