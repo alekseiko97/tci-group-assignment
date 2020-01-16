@@ -1,3 +1,4 @@
+import org.junit.Test;
 
 public class BetLoggingAuthorityTest {
 
@@ -33,5 +34,6 @@ public class BetLoggingAuthorityTest {
      * This test is created to test Void logCardReturned(Card c, string timeStamp) method
      */
     @Test
-    public void logACardWhenItIsReturned()
+    public void logACardWhenItIsReturned() {}
+
 }
