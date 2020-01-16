@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BetRound {
     private int roundId;
@@ -21,4 +22,6 @@ public class BetRound {
     public String getToken(){
         return this.token;
     }
+
+
 }
