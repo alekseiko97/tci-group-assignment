@@ -16,6 +16,7 @@ public class Casino {
     }
 
     public Integer requestRandomWholeNumber(String token) {
+        if (token == null || token.isEmpty()) throw new IllegalArgumentException("Token can't be null or empty");
         return bettingAuthority.getRandomWholeNumber(token);
     }
 }
