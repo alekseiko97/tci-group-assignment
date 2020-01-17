@@ -15,32 +15,48 @@ public class CashierTest {
     @Test
     public void aNewCardShouldBeAssignedToGamblerSuccessfully(){
         //arrange
-        Cashier cashier = new Cashier();
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
         //act
-        Card actualCard = cashier.issueCard();
+        Card actualCard = BankTeller.Cashier.issueCard();
 
         //assert
         Assert.assertEquals("Card is not created correctly by cashier", expectedMonth, actualCard.getTimestamp().getMonth());
         Assert.assertEquals("Card is not created correctly by cashier", expectedDate, actualCard.getTimestamp().getDayOfWeek());
         Assert.assertEquals("Card is not created correctly by cashier", expectedHour, actualCard.getTimestamp().getHour());
     }
+
     /**
-     * This test should be passed when a card has sufficient balance
+     * This test should be passed when a card has the amount less then the betAmount
      * This is created to test boolean checkBalance(Card card) method
      */
     @Test
     public void aCardWithInsufficientBalanceShouldReturnFalse(){
         //arrange
-        Cashier cashier = new Cashier();
-        Card card = new Card();
+        //act
+        Card c = BankTeller.Cashier.issueCard();
+        BankTeller.Cashier.updateCardBalance(c, 50);
+
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(c, 50);
+
+        //assert
+        Assert.assertTrue(actualResult);
+    }
+
+    /**
+     * This test should be passed when a card has the amount more then the betAmount
+     * This is created to test boolean checkBalance(Card card) method
+     */
+    @Test
+    public void aCardWithSufficientBalanceShouldReturnFalse(){
+        //arrange
 
         //act
-        cashier.checkBalance(C)
-        //assert
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(BankTeller.Cashier.issueCard(), 200.0);
 
+        //assert
+        Assert.assertFalse( actualResult);
     }
 
     /**

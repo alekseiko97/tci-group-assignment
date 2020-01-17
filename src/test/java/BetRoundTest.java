@@ -108,12 +108,12 @@ public class BetRoundTest {
     @Test
     public void listOfPlacedBetsShouldBeReturnedSuccessfully(){
         //arrange
-        BetRound round = new BetRound();
-        Bet bet1 = new Bet();
-        Bet bet2 = new Bet();
-        List<Bet> expectedResult = new ArrayList<>();
-        expectedResult.add(bet1);
-        expectedResult.add(bet2);
+//        BetRound round = new BetRound();
+//        Bet bet1 = new Bet();
+//        Bet bet2 = new Bet();
+//        List<Bet> expectedResult = new ArrayList<>();
+//        expectedResult.add(bet1);
+//        expectedResult.add(bet2);
 
         //act
        // List<Bet> actualResult = round.getListOfBet();
