@@ -6,7 +6,6 @@ public class BankTeller {
         private static HashMap<Card, Double> cashToCard = new HashMap<>();
 
         /**
-         *
          * @param c
          * @param betAmount
          * @return false if amount on the card is less then betAmount
@@ -37,9 +36,19 @@ public class BankTeller {
 
         public static Card issueCard() {
             Card card = new Card();
-            // initial amount
+            // initial amount is 0.0
             cashToCard.put(card, 0.0);
             return card;
+        }
+
+        /**
+         * When the method resetCard is called, it removed card from cashToCard list
+         * And method returnCardToCashier() in Card class will be called.
+         * @param card
+         */
+        public static void resetCard (Card card) {
+            card.returnCardToCashier();
+            cashToCard.remove(card);
         }
     }
 }

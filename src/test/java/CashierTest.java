@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
+import static org.mockito.Mockito.*;
 
 public class CashierTest {
 
@@ -86,12 +87,18 @@ public class CashierTest {
     }
 
     /**
-     * This test should be passed when a card is handed back to the cashier successfully
+     * This test should be passed when a card is handed back to the cashier, the method returnCardToCashier()
+     * is called from Card class
      * This test is created to test void resetCard(Card c) method
      */
     @Test
-    public void cardSuccessfullyReset(){
-
+    public void aCardSuccessfullyReset(){
+        //arrange
+        Card cardShouldBeReset = mock(Card.class);
+        //act
+        BankTeller.Cashier.resetCard(cardShouldBeReset);
+        //assert
+        verify(cardShouldBeReset).returnCardToCashier();
     }
 
 }
