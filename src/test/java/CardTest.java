@@ -6,6 +6,10 @@ import static org.mockito.Mockito.mock;
 
 public class CardTest {
 
+    private static final double BET_AMOUNT = 50.0;
+    // arrange
+    Card card = new Card();
+
     /**
      *Test should pass when card details(timestamp & list of bets) are reset
      *This is to test the behaviour of method void returnCardToCashier()
@@ -13,11 +17,10 @@ public class CardTest {
     @Test
     public void cardSuccessfullyReturnedToCashier()
     {
-        //arrange
-        Card card = new Card();
-        //act
+        // act
         card.returnCardToCashier();
-        //assert
+
+        // assert
         Assert.assertEquals(0, card.getListOfBets().size());
         Assert.assertNull(card.getTimestamp());
     }
@@ -29,12 +32,10 @@ public class CardTest {
     @Test
     public void cardIsConnectedToGamingMachineWithValidGameType()
     {
-        //arrange
-        Card card = new Card();
-        //act
+        // act
         boolean result = card.connectToGamingMachine(GameType.BlackJack);
-        //assert
-        Assert.assertEquals(true, result);
+        // assert
+        Assert.assertTrue(result);
     }
 
     /**
@@ -44,22 +45,12 @@ public class CardTest {
     @Test
     public void successfullyPlaceABet()
     {
-        //arrange
-        Card card = new Card();
-        BetRound betRound=new BetRound();
-        //act
-        card.placeBet(betRound,10.0);
-        //assert
+        // arrange
+        BetRound betRound = new BetRound();
+        // act
+        card.placeBet(betRound, BET_AMOUNT);
+        // assert
         Assert.assertEquals(1, card.getListOfBets().size());
-
-    }
-    /**
-     *test should pass when money is deposited in the provided card with provided amount
-     *testing method void depositMoney(double amount,Card card)
-     */
-    @Test
-    public void successfullyDepositMoneyInCard()
-    {
 
     }
 
