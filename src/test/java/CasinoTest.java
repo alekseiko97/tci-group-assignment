@@ -55,7 +55,7 @@ public class CasinoTest {
     /**
      * This test should be successful if calling DOC’s method returns a random whole number
      * Valid token must be provided
-     * This is to test the behavior of the method int getRandomNumberFromAuthority(String token)
+     * This is to test the behavior of the method Integer requestRandomWholeNumber(String token)
      */
 
     @Test
@@ -73,12 +73,13 @@ public class CasinoTest {
 
     /**
      * This test will succeed if IllegalArgumentException is thrown when invalid token is passed
-     * This is to test the behavior of the method int getRandomNumberFromAuthority(String token)
+     * This is to test the behavior of the method Integer requestRandomWholeNumber(String token)
      */
 
     @Test (expected = IllegalArgumentException.class)
     public void requestingRandomNumberWithInvalidTokenShouldThrowAnException() {
-        throw new NotImplementedException();
+        // act
+        casino.requestRandomWholeNumber("");
     }
 
 
