@@ -27,6 +27,21 @@ public class CashierTest {
         Assert.assertEquals("Card is not created correctly by cashier", expectedDate, actualCard.getTimestamp().getDayOfWeek());
         Assert.assertEquals("Card is not created correctly by cashier", expectedHour, actualCard.getTimestamp().getHour());
     }
+    /**
+     * This test should be passed when a card has sufficient balance
+     * This is created to test boolean checkBalance(Card card) method
+     */
+    @Test
+    public void aCardWithInsufficientBalanceShouldReturnFalse(){
+        //arrange
+        Cashier cashier = new Cashier();
+        Card card = new Card();
+
+        //act
+        cashier.checkBalance(C)
+        //assert
+
+    }
 
     /**
      * This test should throw exception when updating the credit on the card with the insufficient amount
