@@ -7,18 +7,22 @@ public class BetRound {
     private String roundId;
     private String token;
     private List<Bet> bets;
+    private boolean isRunning;
     private BettingAuthority bettingAuthority;
 
-    public BetRound() {
+    public BetRound(BettingAuthority bettingAuthority) {
         this.roundId = UUID.randomUUID().toString();
         this.bets = new ArrayList<Bet>();
         this.isRunning = false;
         this.bettingAuthority = bettingAuthority;
     }
 
-    public LocalDateTime startRound() {
-        isRunning = true;
+    public LocalDateTime startRound(String token) {
+        if (token == null || token.isEmpty()) { throw new IllegalArgumentException("Token cannot be null or empty"); }
+        // log
         bettingAuthority.logBettingRound(UUID.randomUUID().toString(),LocalDateTime.now());
+        // change the status
+        isRunning = true;
         return LocalDateTime.now();
     }
 
@@ -41,5 +45,13 @@ public class BetRound {
 
     public List<Bet> getListOfBets() {
         return this.bets;
+    }
+
+    public String getBetRoundID() {
+        return roundId;
+    }
+
+    public boolean getBetRoundStatus() {
+        return this.isRunning;
     }
 }

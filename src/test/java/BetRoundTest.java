@@ -20,14 +20,16 @@ public class BetRoundTest {
      */
     @Test
     public void startingBetRoundShouldReturnDateSuccessful(){
-        //arrange
+        // arrange
         BettingAuthority bettingAuthority = new BettingAuthority();
         BetRound round = new BetRound(bettingAuthority);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
+        String token = mock(String.class);
+
         //act
-        LocalDateTime actualResult = round.startRound();
+        LocalDateTime actualResult = round.startRound(token);
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -103,7 +105,7 @@ public class BetRoundTest {
         // arrange
         Casino casino = new Casino();
         BetRound betRound = casino.createBetRound();
-        String token = casino.getUniqueToken(betRound.getBetId());
+        String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
         // act
         betRound.startRound(token);
@@ -150,12 +152,13 @@ public class BetRoundTest {
         //arrange
         BettingAuthority bettingAuthority = mock(BettingAuthority.class);
         BetRound round = new BetRound(bettingAuthority);
-        //act
-        round.startRound();
+        String token = mock(String.class);
+
+        // act
+        round.startRound(token);
+
         //assert
         verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
-        //Mockito.when(collaborator.someMethod()).thenReturn(...)
-       // verify(bettingAuthority).
     }
 
 
