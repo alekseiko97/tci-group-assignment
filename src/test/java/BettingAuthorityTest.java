@@ -1,24 +1,25 @@
 import org.junit.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class BetAuthorityTest {
+
+
+public class BettingAuthorityTest {
+
 
     /**
      * Test should pass when starting betting round is accompanied by a logging and timestamping of it
      * The information about the bet round needs to be logged upon creating it
      * This is to test the behavior of the method void logBettingRound(BetRound betRound, String token)
      */
-
     @Test
     public void creationOfBettingRoundShouldBeLoggedAndTimestamped() {
         throw new NotImplementedException();
     }
-
-    /**
-     * Test should pass if all bets from the given betting round are logged by the end of the round
-     * Valid token should be provided to succeed
-     * This test is created to test void logEnd(List<Bet> bets, String token)
-     */
+        /**
+         * Test should pass if all bets from the given betting round are logged by the end of the round
+         * Valid token should be provided to succeed
+         * This test is created to test void logEnd(List<Bet> bets, String token)
+         */
 
     @Test
     public void allBetsFromBettingRoundShouldBeLoggedWhenFinished() {
@@ -66,4 +67,5 @@ public class BetAuthorityTest {
     public void providingInvalidBetRoundIDWhenGeneratingTokenShouldThrowAnException() {
         throw new NotImplementedException();
     }
+
 }

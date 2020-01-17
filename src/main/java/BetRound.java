@@ -13,11 +13,12 @@ public class BetRound {
         this.bets = new ArrayList<Bet>();
     }
 
-    public LocalDateTime startRound(Bet bet) {
+    public LocalDateTime startRound() {
         return LocalDateTime.now();
     }
 
-    public LocalDateTime endRound(Bet bet) {
+    public LocalDateTime endRound() {
+
         return LocalDateTime.now();
     }
 

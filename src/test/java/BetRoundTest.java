@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import java.time.LocalDateTime;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 public class BetRoundTest {
@@ -117,6 +117,21 @@ public class BetRoundTest {
     @Test
     public void listOfPlacedBetsShouldBeReturnedSuccessfully(){
 
+    }
+
+    /**
+     * Test should be passed when logBettingRound from BettingAuthority is being called from BetRound-> startRound
+     * this test is created to test void logBettingRound(BetRound betRound, String token)
+     */
+    @Test
+    public void logBettingRoundSuccessfullyFromStartRound(){
+        //arrange
+        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+        BetRound round = new BetRound();
+        //act
+        round.startRound();
+        //assert
+        verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now().toString());
     }
 
 
