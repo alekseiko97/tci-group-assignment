@@ -65,7 +65,11 @@ public class CashierTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void updateCardBalanceWithInsufficientAmountShouldThrowException(){
-
+        //arrange
+        Card c = BankTeller.Cashier.issueCard();
+        //act
+        BankTeller.Cashier.updateCardBalance(c, 0);
+        //assert
     }
 
     /**
