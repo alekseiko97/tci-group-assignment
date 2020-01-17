@@ -38,6 +38,10 @@ public class Card {
         this.gamingMachine=gm;
         return true;
     }
-
+    public void placeBet(BetRound betRound, double betAmount) {
+        Bet bet = new Bet(betAmount);
+        gamingMachine.placeBet(betRound, bet);
+        this.listOfBets.add(bet);
+    }
 
 }

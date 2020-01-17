@@ -23,9 +23,9 @@ public class GamingMachine {
         return machineID;
     }
 
-    public double placeBet(BetRound betRound, double inAmount) {
-        if (inAmount < 0) throw new IllegalArgumentException();
-        return betRound.placeBet(new Bet(inAmount));
+    public double placeBet(BetRound betRound, Bet bet) {
+        if (bet.getInAmount() < 0) throw new IllegalArgumentException();
+        return betRound.placeBet(new Bet(bet.getInAmount()));
     }
 
 

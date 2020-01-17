@@ -2,6 +2,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Bet {
+    public double getInAmount() {
+        return inAmount;
+    }
 
     private double inAmount;
     private UUID betId;

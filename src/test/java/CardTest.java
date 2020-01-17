@@ -46,7 +46,7 @@ public class CardTest {
     {
         //arrange
         Card card = new Card();
-        BetRound betRound=mock(BetRound.class);
+        BetRound betRound=new BetRound();
         //act
         card.placeBet(betRound,10.0);
         //assert
