@@ -2,8 +2,8 @@ public class Casino {
 
     private BettingAuthority bettingAuthority;
 
-    public Casino() {
-        bettingAuthority = new BettingAuthority();
+    public Casino(BettingAuthority bettingAuthority) {
+        this.bettingAuthority = bettingAuthority;
     }
 
     public BetRound createBetRound() {

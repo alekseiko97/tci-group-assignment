@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 public class BetRoundTest {
 
     double AMOUNT = 20.0;
+    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -103,7 +104,7 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino();
+        Casino casino = new Casino(bettingAuthority);
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
@@ -117,7 +118,7 @@ public class BetRoundTest {
     @Test(expected = IllegalArgumentException.class)
     public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
         // arrange
-        Casino casino = new Casino();
+        Casino casino = new Casino(bettingAuthority);
         BetRound betRound = casino.createBetRound();
 
         // act
