@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -29,5 +30,10 @@ public class BettingAuthority implements BetLoggingAuthority, BetTokenAuthority 
     @Override
     public String getUniqueToken(String betRoundID) {
         return UUID.randomUUID().toString() + "_" + betRoundID;
+    }
+
+    @Override
+    public Integer getRandomWholeNumber(String token) {
+        return new Random().nextInt();
     }
 }

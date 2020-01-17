@@ -14,4 +14,9 @@ public class Casino {
         if (betRoundID == null || betRoundID.isEmpty()) throw new IllegalArgumentException("Bet round id can't be null or empty");
         return bettingAuthority.getUniqueToken(betRoundID);
     }
+
+    public Integer requestRandomWholeNumber(String token) {
+        if (token == null || token.isEmpty()) throw new IllegalArgumentException("Token can't be null or empty");
+        return bettingAuthority.getRandomWholeNumber(token);
+    }
 }

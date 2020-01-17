@@ -54,17 +54,20 @@ public class CasinoTest {
 
     /**
      * This test should be successful if calling DOC’s method returns a random whole number
-     * Valid token should be provided
+     * Valid token must be provided
      * This is to test the behavior of the method int getRandomNumberFromAuthority(String token)
      */
 
     @Test
     public void randomWholeNumberCanBeObtainedFromAuthority() {
         // arrange
-        String token = mock(String.class);
+        BetRound betRound = casino.createBetRound();
+        String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
+        // act
         Integer number = casino.requestRandomWholeNumber(token);
 
+        // assert
         Assert.assertNotNull(number);
     }
 
