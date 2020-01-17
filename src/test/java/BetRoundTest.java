@@ -70,7 +70,7 @@ public class BetRoundTest {
         BettingAuthority bettingAuthority = new BettingAuthority();
 
         BetRound round = new BetRound(bettingAuthority);
-        Double expectedResult = 200.0;
+        Double expectedResult = (Double) 200.0;
         //act
         Double actualResult = round.placeBet(bet);
         //assert
@@ -190,6 +190,8 @@ public class BetRoundTest {
         //assert
         verify(bettingAuthority, times(1)).logEnd(round, winningBet, timeStampTest);
     }
+
+
 
 
 }

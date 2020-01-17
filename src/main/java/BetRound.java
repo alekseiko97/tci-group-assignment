@@ -37,7 +37,7 @@ public class BetRound {
 
     public Double placeBet(Bet bet) {
         this.bets.add(bet);
-        return 0.0;
+        return (Double) 0.0;
     }
 
     public void setToken(String token){

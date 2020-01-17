@@ -11,9 +11,9 @@ public class BankTeller {
 
         public static void updateCardBalance(Card c, double amount) {
             if (cashToCard.containsKey(c)) {
-                cashToCard.put(c, cashToCard.get(c) + amount);
+                cashToCard.put(c, Double.valueOf(cashToCard.get(c) + amount));
             } else { // if the card was not in the hash map
-                cashToCard.put(c, amount);
+                cashToCard.put(c, Double.valueOf(amount));
             }
         }
 

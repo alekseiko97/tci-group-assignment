@@ -1,5 +1,11 @@
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
+
 public class CashierTest {
 
     /**
@@ -23,12 +29,16 @@ public class CashierTest {
     }
 
     /**
-     * This test should be passed when a new card is given to the gambler successfully by the cashier
-     * This test is created to test void giveCardToGambler(Gambler gambler) method
+     * This test should be passed when a new card is issued successfully by the cashier
+     * This test is created to test Card issueCard() method
      */
     @Test
-    public void aNewCardShouldBeAssignedToGamblerSuccessfully(){
-
+    public void aNewCardShouldBeAssignedSuccessfully(){
+        //arrange
+        //act
+        Card card = BankTeller.Cashier.issueCard();
+        //assert
+        assertNotNull(card);
     }
 
     /**
@@ -56,6 +66,22 @@ public class CashierTest {
     @Test
     public void cardSuccessfullyReset(){
 
+    }
+
+    /**
+     * Test should be passed when logCardHandedOut from BettingAuthority is being called from Cashier-> issueCard
+     * this test is created to test Card issueCard()
+     */
+    @Test
+    public void logCardHandedOutWhenCardIsIssuedSuccessfullyFromIssueCard(){
+        //arrange
+        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
+        //act
+        Card card = BankTeller.Cashier.issueCard();
+        //assert
+        verify(bettingAuthority, times(1)).logCardHandedOut(card, timeStampTest);
     }
 
 }
