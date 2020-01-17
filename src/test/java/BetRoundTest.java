@@ -114,6 +114,16 @@ public class BetRoundTest {
         Assert.assertTrue(betRound.getBetRoundStatus());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
+        // arrange
+        Casino casino = new Casino();
+        BetRound betRound = casino.createBetRound();
+
+        // act
+        betRound.startRound(null);
+    }
+
     /**
      * This test should be passed if the balance of the card is updated successfully with the amount won when the round has ended
      * This test is created to test LocalDate endRound(Cashier cashier, double amount) method
