@@ -22,8 +22,9 @@ public class GamingMachine {
         return machineID;
     }
 
-    public void placeBet(BetRound betRound) {
-        //return betRound.placeBet(inAmount);
+    public double placeBet(BetRound betRound, double inAmount) {
+        if (inAmount < 0) throw new IllegalArgumentException();
+        return betRound.placeBet(new Bet(inAmount));
     }
 
 

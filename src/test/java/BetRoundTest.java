@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 public class BetRoundTest {
 
+    double AMOUNT = 20.0;
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -20,7 +21,7 @@ public class BetRoundTest {
     @Test
     public void startingBetRoundShouldReturnDateSuccessful(){
         //arrange
-        Bet bet = new Bet();
+        Bet bet = new Bet(AMOUNT);
         BetRound round = new BetRound();
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
@@ -39,7 +40,7 @@ public class BetRoundTest {
      */
     @Test
     public void endingBetRoundShouldReturnDateSuccessful(){
-        Bet bet = new Bet();
+        Bet bet = new Bet(AMOUNT);
         BetRound round = new BetRound();
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
@@ -60,11 +61,11 @@ public class BetRoundTest {
     @Test
     public void placeBetInBetRoundShouldReturnBetValueSuccessful(){
        //arrange
-        Bet bet = new Bet();
+        Bet bet = new Bet(AMOUNT);
         BetRound round = new BetRound();
         Double expectedResult = 200.0;
         //act
-        Double actualResult = round.placeBet(bet,200.0);
+        Double actualResult = round.placeBet(bet);
         //assert
         Assert.assertEquals("Bet amount is not returned correctly when a bet is placed", expectedResult, actualResult);
     }
