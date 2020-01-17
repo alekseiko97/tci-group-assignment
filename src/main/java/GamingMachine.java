@@ -23,9 +23,15 @@ public class GamingMachine {
         return machineID;
     }
 
-    public double placeBet(BetRound betRound, Bet bet) {
+    public double placeBet(Card c, BetRound betRound, Bet bet) throws Exception {
         if (bet.getInAmount() < 0) throw new IllegalArgumentException();
-        return betRound.placeBet(new Bet(bet.getInAmount()));
+
+        // if card has sufficient amount to place a bet
+        if ((BankTeller.Cashier.checkCardBalance(c, bet.getInAmount()))) {
+            return betRound.placeBet(bet);
+        }
+
+        throw new Exception("Card doesn't have enough balance to place a bet");
     }
 
 

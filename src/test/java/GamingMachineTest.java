@@ -10,6 +10,7 @@ public class GamingMachineTest {
     GamingMachine gm = new GamingMachine(gameType);
     Casino casino = new Casino();
     BetRound betRound = casino.createBetRound();
+    Card card = mock(Card.class);
 
     /**
      * Test should pass when place a bet is placed by providing betRound
@@ -17,12 +18,12 @@ public class GamingMachineTest {
      */
 
     @Test
-    public void gamingMachineCanPlaceBetOnBettingRound() {
+    public void gamingMachineCanPlaceBetOnBettingRound() throws Exception {
         // arrange
         double AMOUNT = 50.0;
 
         // act
-        gm.placeBet(betRound, new Bet(AMOUNT));
+        gm.placeBet(card, betRound, new Bet(AMOUNT));
 
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
@@ -33,9 +34,9 @@ public class GamingMachineTest {
      * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
     @Test(expected = IllegalArgumentException.class)
-    public void betAmountLessThanZeroShouldThrowAnException() {
+    public void betAmountLessThanZeroShouldThrowAnException() throws Exception {
         // act
-        gm.placeBet(betRound, new Bet(-1.0));
+        gm.placeBet(card, betRound, new Bet(-1.0));
     }
 
     /**
@@ -45,9 +46,6 @@ public class GamingMachineTest {
 
     @Test
     public void cardCanBeConnectedToGamblingMachine() {
-        // arrange
-        Card card = mock(Card.class);
-
         // act
         gm.addCardToConnectedCards(card);
 
@@ -70,17 +68,18 @@ public class GamingMachineTest {
      */
 
     @Test
-    public void cardWithSufficientBalanceCanPlaceBet() {
+    public void cardWithSufficientBalanceCanPlaceBet() throws Exception {
         // arrange
-        Cashier cashier = new Cashier();
-        Card card = cashier.issueCard();
-        cashier.updateCardBalance(card, 55.00);
+        Card card = BankTeller.Cashier.issueCard(); // actual card
+        BankTeller.Cashier.updateCardBalance(card, 55.00);
 
         // act
-        //gm.placeBet(betRound, );
+        gm.placeBet(card, betRound, new Bet(50.00));
 
         // assert
-        Assert.assertEquals(2, betRound.getListOfBets().size());
+        Assert.assertEquals(1, betRound.getListOfBets().size());
     }
+
+
 
 }

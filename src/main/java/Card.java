@@ -33,15 +33,22 @@ public class Card {
     }
 
     public boolean connectToGamingMachine(GameType blackJack) {
-        GamingMachine gm=new GamingMachine(blackJack);
+        GamingMachine gm = new GamingMachine(blackJack);
         gm.addCardToConnectedCards(this);
-        this.gamingMachine=gm;
+        this.gamingMachine = gm;
         return true;
     }
+
     public void placeBet(BetRound betRound, double betAmount) {
         Bet bet = new Bet(betAmount);
-        gamingMachine.placeBet(betRound, bet);
-        this.listOfBets.add(bet);
+
+        try {
+            gamingMachine.placeBet(this, betRound, bet);
+            this.listOfBets.add(bet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
