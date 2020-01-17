@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import java.time.LocalDateTime;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 public class BetRoundTest {
@@ -21,13 +21,13 @@ public class BetRoundTest {
     @Test
     public void startingBetRoundShouldReturnDateSuccessful(){
         //arrange
-        Bet bet = new Bet(AMOUNT);
-        BetRound round = new BetRound();
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound round = new BetRound(bettingAuthority);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
         //act
-        LocalDateTime actualResult = round.startRound(bet);
+        LocalDateTime actualResult = round.startRound();
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -40,13 +40,14 @@ public class BetRoundTest {
      */
     @Test
     public void endingBetRoundShouldReturnDateSuccessful(){
-        Bet bet = new Bet(AMOUNT);
-        BetRound round = new BetRound();
+        //arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound round = new BetRound(bettingAuthority);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
         //act
-        LocalDateTime actualResult = round.endRound(bet);
+        LocalDateTime actualResult = round.endRound();
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -62,7 +63,9 @@ public class BetRoundTest {
     public void placeBetInBetRoundShouldReturnBetValueSuccessful(){
        //arrange
         Bet bet = new Bet(AMOUNT);
-        BetRound round = new BetRound();
+        BettingAuthority bettingAuthority = new BettingAuthority();
+
+        BetRound round = new BetRound(bettingAuthority);
         Double expectedResult = 200.0;
         //act
         Double actualResult = round.placeBet(bet);
@@ -79,7 +82,9 @@ public class BetRoundTest {
     public void tokenIsSetSuccessfullyToBettingRound(){
         //arrange
         String expectedResult = "TokenBetRound1";
-        BetRound round = new BetRound();
+        BettingAuthority bettingAuthority = new BettingAuthority();
+
+        BetRound round = new BetRound(bettingAuthority);
         //act
         round.setToken(expectedResult);
         String actualResult = round.getToken();
@@ -134,6 +139,23 @@ public class BetRoundTest {
     @Test
     public void listOfPlacedBetsShouldBeReturnedSuccessfully(){
 
+    }
+
+    /**
+     * Test should be passed when logBettingRound from BettingAuthority is being called from BetRound-> startRound
+     * this test is created to test void logBettingRound(BetRound betRound, String token)
+     */
+    @Test
+    public void logBettingRoundSuccessfullyFromStartRound(){
+        //arrange
+        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+        BetRound round = new BetRound(bettingAuthority);
+        //act
+        round.startRound();
+        //assert
+        verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
+        //Mockito.when(collaborator.someMethod()).thenReturn(...)
+       // verify(bettingAuthority).
     }
 
 

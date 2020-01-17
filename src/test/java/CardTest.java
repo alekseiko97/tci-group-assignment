@@ -17,10 +17,11 @@ public class CardTest {
     @Test
     public void cardSuccessfullyReturnedToCashier()
     {
-        // act
+        //arrange
+        Card card = new Card();
+        //act
         card.returnCardToCashier();
-
-        // assert
+        //assert
         Assert.assertEquals(0, card.getListOfBets().size());
         Assert.assertNull(card.getTimestamp());
     }
@@ -32,10 +33,12 @@ public class CardTest {
     @Test
     public void cardIsConnectedToGamingMachineWithValidGameType()
     {
-        // act
+        //arrange
+        Card card = new Card();
+        //act
         boolean result = card.connectToGamingMachine(GameType.BlackJack);
-        // assert
-        Assert.assertTrue(result);
+        //assert
+        Assert.assertEquals(true, result);
     }
 
     /**
@@ -45,11 +48,13 @@ public class CardTest {
     @Test
     public void successfullyPlaceABet()
     {
-        // arrange
-        BetRound betRound = new BetRound();
-        // act
-        card.placeBet(betRound, BET_AMOUNT);
-        // assert
+        //arrange
+        Card card = new Card();
+        BetRound betRound = new BetRound(new BettingAuthority());
+        GamingMachine gm = new GamingMachine(GameType.BlackJack);
+        //act
+        card.placeBet(betRound,10.0, gm);
+        //assert
         Assert.assertEquals(1, card.getListOfBets().size());
 
     }
