@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class GamingMachineTest {
 
@@ -56,18 +57,13 @@ public class GamingMachineTest {
 
 
     /**
-     * test should pass when getMachineID, returns a UUID
-     * testing method UUID getMachineId()
+     * Test should pass when getMachineID, returns a UUID
+     * Testing the behavior of the method UUID getMachineId()
      */
     @Test
-    public void successfullyGetMachineId() {
+    public void gettingMachineIDShouldReturnNonNullValue() {
+        // act
+        Assert.assertNotNull(gm.getMachineID());
     }
 
-    /**
-     * test should pass when throws exception while getting machine id does not return UUID format
-     * testing method UUID getMachineId()
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenGetMachineIdReturnsIncorrectFormatOfMachineId() {
-    }
 }
