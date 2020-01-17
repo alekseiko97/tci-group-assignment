@@ -137,8 +137,22 @@ public class BetRoundTest {
         round.startRound();
         //assert
         verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
-        //Mockito.when(collaborator.someMethod()).thenReturn(...)
-       // verify(bettingAuthority).
+    }
+
+    /**
+     * Test should be passed when logEnd from BettingAuthority is being called from BetRound-> endRound
+     * this test is created to test void endRound()
+     */
+    @Test
+    public void logBettingRoundSuccessfullyFromEndRound(){
+        //arrange
+        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+        BetRound round = new BetRound(bettingAuthority);
+        Bet winningBet=new Bet(100.0);
+        //act
+        round.endRound();
+        //assert
+        verify(bettingAuthority, times(1)).logEnd(round, winningBet, LocalDateTime.now());
     }
 
 
