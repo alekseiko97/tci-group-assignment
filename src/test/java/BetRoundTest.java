@@ -51,7 +51,7 @@ public class BetRoundTest {
         int expectedHour = LocalDateTime.now().getHour();
         Bet winningBet=new Bet(100.0);
         //act
-        LocalDateTime actualResult = round.endRound();
+        LocalDateTime actualResult = round.endRound(winningBet);
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -161,12 +161,15 @@ public class BetRoundTest {
      */
     @Test
     public void logBettingRoundSuccessfullyFromStartRound(){
-        //arrange
+        // arrange
         BettingAuthority bettingAuthority = mock(BettingAuthority.class);
         BetRound round = new BetRound(bettingAuthority);
-        //act
-        round.startRound();
-        //assert
+        String token = mock(String.class);
+
+        // act
+        round.startRound(token);
+
+        // assert
         verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
     }
 
