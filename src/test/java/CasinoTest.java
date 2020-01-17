@@ -2,6 +2,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import static org.mockito.Mockito.mock;
+
 public class CasinoTest {
 
     BettingAuthority bettingAuthority = new BettingAuthority();
@@ -58,7 +60,12 @@ public class CasinoTest {
 
     @Test
     public void randomWholeNumberCanBeObtainedFromAuthority() {
-        throw new NotImplementedException();
+        // arrange
+        String token = mock(String.class);
+
+        Integer number = casino.requestRandomWholeNumber(token);
+
+        Assert.assertNotNull(number);
     }
 
     /**
