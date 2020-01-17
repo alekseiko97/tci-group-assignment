@@ -55,7 +55,6 @@ public class GamingMachineTest {
         Assert.assertEquals(1, gm.getListOfConnectedCards().size());
     }
 
-
     /**
      * Test should pass when getMachineID, returns a UUID
      * Testing the behavior of the method UUID getMachineId()
@@ -64,6 +63,23 @@ public class GamingMachineTest {
     public void gettingMachineIDShouldReturnNonNullValue() {
         // act
         Assert.assertNotNull(gm.getMachineID());
+    }
+
+    /**
+     * Test should pass if the card with sufficient amount on it (more or equal to the bet amount) can place a bet
+     */
+
+    @Test
+    public void cardWithSufficientBalanceCanPlaceBet() {
+        // arrange
+        Cashier cashier = new Cashier();
+        cashier.updateCardBalance(c, 55.00);
+
+        // act
+        gm.placeBet(card, betRound, 50.0);
+
+        // assert
+        Assert.assertEquals(2, betRound.getListOfBets().size());
     }
 
 }
