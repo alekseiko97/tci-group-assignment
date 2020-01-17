@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,5 +31,9 @@ public class GamingMachine {
 
     public void addCardToConnectedCards(Card card) {
         listOfConnectedCards.add(card);
+    }
+
+    public List<Card> getListOfConnectedCards() {
+        return this.listOfConnectedCards;
     }
 }

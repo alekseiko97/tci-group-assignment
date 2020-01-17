@@ -21,10 +21,10 @@ public class GamingMachineTest {
         double AMOUNT = 50.0;
 
         // act
-        gm.placeBet(betRound);
+        gm.placeBet(betRound, AMOUNT);
 
         // assert
-      //  Assert.assertEquals(1, betRound.getListOfBets().size());
+        Assert.assertEquals(1, betRound.getListOfBets().size());
     }
 
     /**
@@ -53,8 +53,6 @@ public class GamingMachineTest {
         // assert
         Assert.assertEquals(1, gm.getListOfConnectedCards().size());
     }
-
-
 
 
     /**
