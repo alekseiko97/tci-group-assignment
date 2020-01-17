@@ -119,7 +119,7 @@ public class BetRoundTest {
     @Test(expected = IllegalArgumentException.class)
     public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
         // arrange
-        Casino casino = new Casino(bettingAuthority);
+        Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
 
         // act
@@ -199,14 +199,13 @@ public class BetRoundTest {
         // arrange
         BettingAuthority bettingAuthority = new BettingAuthority();
         BetRound betRound = new BetRound(bettingAuthority);
+        betRound.setToken("token");
 
         // act
-        betRound.setToken("token");
         Integer value = betRound.getRandomValue(betRound.getToken());
 
         // assert
         Assert.assertNotNull(value);
-
     }
 
 
