@@ -7,13 +7,17 @@ public class BetRound {
     private String roundId;
     private String token;
     private List<Bet> bets;
+    private BettingAuthority bettingAuthority;
 
-    public BetRound() {
+    public BetRound(BettingAuthority bettingAuthority) {
         this.roundId = UUID.randomUUID().toString();
         this.bets = new ArrayList<Bet>();
+        this.bettingAuthority = bettingAuthority;
     }
 
     public LocalDateTime startRound() {
+
+        bettingAuthority.logBettingRound(UUID.randomUUID().toString(),LocalDateTime.now());
         return LocalDateTime.now();
     }
 

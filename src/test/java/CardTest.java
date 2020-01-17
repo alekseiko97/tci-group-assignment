@@ -46,9 +46,10 @@ public class CardTest {
     {
         //arrange
         Card card = new Card();
-        BetRound betRound = new BetRound();
+        BetRound betRound = new BetRound(new BettingAuthority());
+        GamingMachine gm = new GamingMachine(GameType.BlackJack);
         //act
-        card.placeBet(betRound,10.0);
+        card.placeBet(betRound,10.0, gm);
         //assert
         Assert.assertEquals(1, card.getListOfBets().size());
 
