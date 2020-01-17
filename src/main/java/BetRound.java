@@ -21,8 +21,12 @@ public class BetRound {
         return LocalDateTime.now();
     }
 
-    public LocalDateTime endRound() {
+    public LocalDateTime endRound(Bet winingBet) {
+        //BetRound round, Bet winningBet, LocalDateTime now
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStamp = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
 
+        bettingAuthority.logEnd(this, winingBet, timeStamp);
         return LocalDateTime.now();
     }
 
