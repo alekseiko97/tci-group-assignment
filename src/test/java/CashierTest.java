@@ -78,7 +78,11 @@ public class CashierTest {
      */
     @Test
     public void updateCardBalanceWithSufficientAmountShouldBeSuccessful(){
-
+        //arrange
+        Card c = BankTeller.Cashier.issueCard();
+        //act
+        BankTeller.Cashier.updateCardBalance(c, 20);
+        //assert
     }
 
     /**
