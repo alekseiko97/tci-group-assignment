@@ -8,14 +8,12 @@ public class Card {
     private UUID cardId;
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
-    private boolean isCardConnected;
     private GamingMachine gamingMachine = null;
 
     public Card() {
         this.cardId = UUID.randomUUID();
         this.timestamp = LocalDateTime.now();
         this.listOfBets = new ArrayList<Bet>();
-        this.isCardConnected=false;
     }
 
     public void returnCardToCashier() {

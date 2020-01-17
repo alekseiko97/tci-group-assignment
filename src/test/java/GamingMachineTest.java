@@ -34,7 +34,7 @@ public class GamingMachineTest {
      * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
     @Test(expected = IllegalArgumentException.class)
-    public void betAmountLessThanZeroShouldThrowAnException() throws Exception {
+    public void betAmountLessOrEqualToZeroShouldThrowAnException() throws Exception {
         // act
         gm.placeBet(card, betRound, new Bet(-1.0));
     }

@@ -25,6 +25,7 @@ public class BetRound {
         this.bets.add(bet);
         return 0.0;
     }
+
     public void setToken(String token){
         this.token = token;
     }
