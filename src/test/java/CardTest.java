@@ -53,7 +53,7 @@ public class CardTest {
         BetRound betRound = new BetRound(new BettingAuthority());
         GamingMachine gm = new GamingMachine(GameType.BlackJack);
         //act
-        card.placeBet(betRound,10.0, gm);
+        card.placeBet(betRound,10.0);
         //assert
         Assert.assertEquals(1, card.getListOfBets().size());
 
@@ -68,9 +68,5 @@ public class CardTest {
     public void DepositMoneyInCardShouldThrowExceptionWhenAmountIsInCorrect()
     {
     }
-
-
-
-
 
 }

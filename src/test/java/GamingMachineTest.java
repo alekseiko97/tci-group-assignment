@@ -1,14 +1,14 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class GamingMachineTest {
 
     GameType gameType = GameType.BlackJack;
     GamingMachine gm = new GamingMachine(gameType);
-    Casino casino = new Casino();
+    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+    Casino casino = new Casino(bettingAuthority);
     BetRound betRound = casino.createBetRound();
     Card card = mock(Card.class);
 

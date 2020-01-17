@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 public class BetRoundTest {
 
     double AMOUNT = 20.0;
+    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -20,14 +21,16 @@ public class BetRoundTest {
      */
     @Test
     public void startingBetRoundShouldReturnDateSuccessful(){
-        //arrange
+        // arrange
         BettingAuthority bettingAuthority = new BettingAuthority();
         BetRound round = new BetRound(bettingAuthority);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
+        String token = mock(String.class);
+
         //act
-        LocalDateTime actualResult = round.startRound();
+        LocalDateTime actualResult = round.startRound(token);
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -48,7 +51,7 @@ public class BetRoundTest {
         int expectedHour = LocalDateTime.now().getHour();
         Bet winningBet=new Bet(100.0);
         //act
-        LocalDateTime actualResult = round.endRound(winningBet);
+        LocalDateTime actualResult = round.endRound();
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -95,6 +98,33 @@ public class BetRoundTest {
 
     }
 
+    /**
+     * This test should pass if bet round can be started after obtaining a unique token from gaming authority via casino
+     * This is to test the behavior of the method startRound(string token)
+     */
+    @Test
+    public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
+        // arrange
+        Casino casino = new Casino(bettingAuthority);
+        BetRound betRound = casino.createBetRound();
+        String token = casino.requestUniqueToken(betRound.getBetRoundID());
+
+        // act
+        betRound.startRound(token);
+
+        // assert
+        Assert.assertTrue(betRound.getBetRoundStatus());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
+        // arrange
+        Casino casino = new Casino(bettingAuthority);
+        BetRound betRound = casino.createBetRound();
+
+        // act
+        betRound.startRound(null);
+    }
 
     /**
      * This test should be passed if the balance of the card is updated successfully with the amount won when the round has ended

@@ -4,7 +4,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class CasinoTest {
 
-    Casino casino = new Casino();
+    BettingAuthority bettingAuthority = new BettingAuthority();
+    Casino casino = new Casino(bettingAuthority);
 
     /**
      * This test should be successful if a new betting round object has been created without throwing any *exception
@@ -16,10 +17,9 @@ public class CasinoTest {
         // arrange & act
         BetRound betRound = casino.createBetRound();
 
+        // assert
         Assert.assertNotNull(betRound);
     }
-
-
 
     /**
      * This test should be successful if calling DOC’s method returns a randomly generated unique token
@@ -29,7 +29,14 @@ public class CasinoTest {
 
     @Test
     public void uniqueTokenCanBeObtainedFromAuthority() {
-        throw new NotImplementedException();
+        // arrange
+        BetRound betRound = casino.createBetRound();
+
+        // act
+        String token = casino.requestUniqueToken(betRound.getBetRoundID());
+
+        // assert
+        Assert.assertNotNull(token);
     }
 
     /**
