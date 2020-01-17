@@ -75,13 +75,10 @@ public class CashierTest {
     @Test
     public void logCardHandedOutWhenCardIsIssuedSuccessfullyFromIssueCard(){
         //arrange
-        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
-        LocalDateTime currentTime = LocalDateTime.now();
-        String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         //act
         Card card = BankTeller.Cashier.issueCard();
         //assert
-        verify(bettingAuthority, times(1)).logCardHandedOut(card, timeStampTest);
+        assertEquals(true, BankTeller.Cashier.isLogCardHandedOut);
     }
 
 }

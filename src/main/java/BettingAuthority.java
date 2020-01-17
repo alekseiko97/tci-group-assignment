@@ -15,6 +15,7 @@ public class BettingAuthority implements BetLoggingAuthority, BetTokenAuthority 
 
     @Override
     public void logCardHandedOut(Card c, String timeStamp) {
+        logger.info("Log - CardId: " + c.getCardId() + ", timestamp: " + timeStamp);
 
     }
 

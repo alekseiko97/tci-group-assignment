@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class Card {
+    public UUID getCardId() {
+        return cardId;
+    }
+
     private UUID cardId;
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
