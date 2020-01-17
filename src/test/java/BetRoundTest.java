@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class BetRoundTest {
 
     double AMOUNT = 20.0;
-    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+    BettingAuthority bettingAuthorityMock = mock(BettingAuthority.class);
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -105,7 +105,7 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino(bettingAuthority);
+        Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
@@ -189,6 +189,24 @@ public class BetRoundTest {
         round.endRound(winningBet);
         //assert
         verify(bettingAuthority, times(1)).logEnd(round, winningBet, timeStampTest);
+    }
+
+    /*
+        This test should pass if bet round is able to get a random whole number
+     */
+    @Test
+    public void betRoundCanAskForRandomValue() {
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound betRound = new BetRound(bettingAuthority);
+
+        // act
+        betRound.setToken("token");
+        Integer value = betRound.getRandomValue(betRound.getToken());
+
+        // assert
+        Assert.assertNotNull(value);
+
     }
 
 
