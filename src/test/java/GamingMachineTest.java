@@ -73,10 +73,11 @@ public class GamingMachineTest {
     public void cardWithSufficientBalanceCanPlaceBet() {
         // arrange
         Cashier cashier = new Cashier();
-        cashier.updateCardBalance(c, 55.00);
+        Card card = cashier.issueCard();
+        cashier.updateCardBalance(card, 55.00);
 
         // act
-        gm.placeBet(card, betRound, 50.0);
+        //gm.placeBet(betRound, );
 
         // assert
         Assert.assertEquals(2, betRound.getListOfBets().size());
