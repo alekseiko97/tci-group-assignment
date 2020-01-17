@@ -22,7 +22,7 @@ public class GamingMachineTest {
         double AMOUNT = 50.0;
 
         // act
-        gm.placeBet(betRound, AMOUNT);
+        gm.placeBet(betRound, new Bet(AMOUNT));
 
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
@@ -35,7 +35,7 @@ public class GamingMachineTest {
     @Test(expected = IllegalArgumentException.class)
     public void betAmountLessThanZeroShouldThrowAnException() {
         // act
-        gm.placeBet(betRound, -1.0);
+        gm.placeBet(betRound, new Bet(-1.0));
     }
 
     /**

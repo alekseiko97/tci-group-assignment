@@ -9,6 +9,7 @@ public class Card {
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
     private boolean isCardConnected;
+    private GamingMachine gamingMachine = null;
 
     public Card() {
         this.cardId = UUID.randomUUID();
@@ -34,9 +35,13 @@ public class Card {
     public boolean connectToGamingMachine(GameType blackJack) {
         GamingMachine gm=new GamingMachine(blackJack);
         gm.addCardToConnectedCards(this);
-        this.isCardConnected=true;
-        return this.isCardConnected;
+        this.gamingMachine=gm;
+        return true;
     }
-
+    public void placeBet(BetRound betRound, double betAmount) {
+        Bet bet = new Bet(betAmount);
+        gamingMachine.placeBet(betRound, bet);
+        this.listOfBets.add(bet);
+    }
 
 }
