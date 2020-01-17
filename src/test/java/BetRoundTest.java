@@ -46,8 +46,9 @@ public class BetRoundTest {
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
+        Bet winningBet=new Bet(100.0);
         //act
-        LocalDateTime actualResult = round.endRound();
+        LocalDateTime actualResult = round.endRound(winningBet);
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
@@ -149,10 +150,12 @@ public class BetRoundTest {
         BettingAuthority bettingAuthority = mock(BettingAuthority.class);
         BetRound round = new BetRound(bettingAuthority);
         Bet winningBet=new Bet(100.0);
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         //act
-        round.endRound();
+        round.endRound(winningBet);
         //assert
-        verify(bettingAuthority, times(1)).logEnd(round, winningBet, LocalDateTime.now());
+        verify(bettingAuthority, times(1)).logEnd(round, winningBet, timeStampTest);
     }
 
 
