@@ -46,7 +46,8 @@ public class CasinoTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void requestingTokenWithInvalidBettingRoundIDShouldThrowAnException() {
-        throw new NotImplementedException();
+        // act
+        casino.requestUniqueToken(null);
     }
 
     /**

@@ -11,6 +11,7 @@ public class Casino {
     }
 
     public String requestUniqueToken(String betRoundID) {
+        if (betRoundID == null || betRoundID.isEmpty()) throw new IllegalArgumentException("Bet round id can't be null or empty");
         return bettingAuthority.getUniqueToken(betRoundID);
     }
 }
