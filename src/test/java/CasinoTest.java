@@ -1,17 +1,25 @@
+import org.junit.Assert;
 import org.junit.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class CasinoTest {
 
+    Casino casino = new Casino();
+
     /**
      * This test should be successful if a new betting round object has been created without throwing any *exception
-     * This test is intended to test the behavior of the method BetRound createBettingRound()
+     * This test is intended to test the behavior of the method BetRound createBetRound()
      */
 
     @Test
-    public void creationBettingRoundShouldBeSuccessful() {
-        throw new NotImplementedException();
+    public void bettingRoundCreationShouldBeSuccessful() {
+        // arrange & act
+        BetRound betRound = casino.createBetRound();
+
+        Assert.assertNotNull(betRound);
     }
+
+
 
     /**
      * This test should be successful if calling DOC’s method returns a randomly generated unique token

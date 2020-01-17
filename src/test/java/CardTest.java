@@ -2,7 +2,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import java.time.LocalDateTime;
 
+import static org.mockito.Mockito.mock;
+
 public class CardTest {
+
+    private static final double BET_AMOUNT = 50.0;
+    // arrange
+    Card card = new Card();
 
     /**
      *Test should pass when card details(timestamp & list of bets) are reset
@@ -11,22 +17,40 @@ public class CardTest {
     @Test
     public void cardSuccessfullyReturnedToCashier()
     {
-        //arrange
-        Card card = new Card();
-        //act
+        // act
         card.returnCardToCashier();
-        //assert
+
+        // assert
         Assert.assertEquals(0, card.getListOfBets().size());
-        Assert.assertEquals(null, card.getTimestamp());
+        Assert.assertNull(card.getTimestamp());
     }
 
     /**
-     *test should pass when money is deposited in the provided card with provided amount
-     *testing method void depositMoney(double amount,Card card)
+     *Test should pass when card tries to connect with a valid gaming machine
+     *This is to test the behaviour of method void connectToGamingMachine()
      */
     @Test
-    public void successfullyDepositMoneyInCard()
+    public void cardIsConnectedToGamingMachineWithValidGameType()
     {
+        // act
+        boolean result = card.connectToGamingMachine(GameType.BlackJack);
+        // assert
+        Assert.assertTrue(result);
+    }
+
+    /**
+     *Test should pass when a bet is placed successfully by a card
+     * This is to test the behaviour of method void placeBet() using a card
+     */
+    @Test
+    public void successfullyPlaceABet()
+    {
+        // arrange
+        BetRound betRound = new BetRound();
+        // act
+        card.placeBet(betRound, BET_AMOUNT);
+        // assert
+        Assert.assertEquals(1, card.getListOfBets().size());
 
     }
 

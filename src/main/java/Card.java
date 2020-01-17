@@ -8,6 +8,7 @@ public class Card {
     private UUID cardId;
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
+    private GamingMachine gamingMachine = null;
 
     public Card() {
         this.cardId = UUID.randomUUID();
@@ -28,4 +29,24 @@ public class Card {
     public List<Bet> getListOfBets() {
         return this.listOfBets;
     }
+
+    public boolean connectToGamingMachine(GameType blackJack) {
+        GamingMachine gm = new GamingMachine(blackJack);
+        gm.addCardToConnectedCards(this);
+        this.gamingMachine = gm;
+        return true;
+    }
+
+    public void placeBet(BetRound betRound, double betAmount) {
+        Bet bet = new Bet(betAmount);
+
+        try {
+            gamingMachine.placeBet(this, betRound, bet);
+            this.listOfBets.add(bet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

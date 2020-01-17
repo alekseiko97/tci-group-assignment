@@ -1,54 +1,100 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 public class GamingMachineTest {
 
+    GameType gameType = GameType.BlackJack;
+    GamingMachine gm = new GamingMachine(gameType);
+    Casino casino = new Casino();
+    BetRound betRound = casino.createBetRound();
+    Card card = mock(Card.class);
+
     /**
-     * test should pass when place a bet is placed by providing betRound
-     * testing method double placeBet(BetRound betRound)
+     * Test should pass when place a bet is placed by providing betRound
+     * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
 
-    double AMOUNT = 50.0;
-
     @Test
-    public void gamingMachineCanPlaceBetOnBettingRound() {
+    public void gamingMachineCanPlaceBetOnBettingRound() throws Exception {
         // arrange
-        GameType gameType = GameType.BlackJack;
-        GamingMachine gm = new GamingMachine(gameType);
-        Casino casino = new Casino();
-        BetRound betRound = casino.createBetRound();
+        double AMOUNT = 50.0;
 
         // act
-        gm.placeBet(betRound, AMOUNT);
+        gm.placeBet(card, betRound, new Bet(AMOUNT));
 
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
     }
 
-
     /**
-     * test should pass when throws exception in case of betAmount is incorrect while placing a bet
-     * testing method double placeBet(BetRound betRound)
+     * Test should pass when exception is thrown in case of betAmount is incorrect while placing a bet
+     * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenBetAmountIsInCorrectWhilePlacingABet() {
-
+    public void betAmountLessOrEqualToZeroShouldThrowAnException() throws Exception {
+        // act
+        gm.placeBet(card, betRound, new Bet(-1.0));
     }
 
+    /**
+     * Test should pass if the card can be added to the list of connected cards on a gaming machine
+     * This is to test the behavior of the method addCardToConnectedCards(Card c)
+     */
+
+    @Test
+    public void cardCanBeConnectedToGamblingMachine() {
+        // act
+        gm.addCardToConnectedCards(card);
+
+        // assert
+        Assert.assertEquals(1, gm.getListOfConnectedCards().size());
+    }
 
     /**
-     * test should pass when getMachineID, returns a UUID
-     * testing method UUID getMachineId()
+     * Test should pass when getMachineID, returns a UUID
+     * Testing the behavior of the method UUID getMachineId()
      */
     @Test
-    public void successfullyGetMachineId() {
+    public void gettingMachineIDShouldReturnNonNullValue() {
+        // act
+        Assert.assertNotNull(gm.getMachineID());
     }
 
     /**
-     * test should pass when throws exception while getting machine id does not return UUID format
-     * testing method UUID getMachineId()
+     * Test should pass if the card with sufficient amount on it (more or equal to the bet amount) can place a bet
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenGetMachineIdReturnsIncorrectFormatOfMachineId() {
+
+    @Test
+    public void cardWithSufficientBalanceCanPlaceBet() throws Exception {
+        // arrange
+        Card card = BankTeller.Cashier.issueCard(); // actual card
+        BankTeller.Cashier.updateCardBalance(card, 55.00);
+
+        // act
+        gm.placeBet(card, betRound, new Bet(50.00));
+
+        // assert
+        Assert.assertEquals(1, betRound.getListOfBets().size());
+
     }
+
+    /**
+     * If the card balance is below the bet amount, an Exception should be thrown
+     * @throws Exception
+     */
+
+    @Test (expected = Exception.class)
+    public void placingBetViaCardWithInsufficientBalanceShouldThrowAnException() throws Exception {
+        // arrange
+        Card card = BankTeller.Cashier.issueCard(); // actual card
+        BankTeller.Cashier.updateCardBalance(card, 55.00);
+
+        // act
+        gm.placeBet(card, betRound, new Bet(60.00));
+    }
+
+
 }
