@@ -7,17 +7,21 @@ public class BetRound {
     private String roundId;
     private String token;
     private List<Bet> bets;
+    private boolean isRunning;
 
     public BetRound() {
         this.roundId = UUID.randomUUID().toString();
         this.bets = new ArrayList<Bet>();
+        this.isRunning = false;
     }
 
-    public LocalDateTime startRound(Bet bet) {
+    public LocalDateTime startRound() {
+        isRunning = true;
         return LocalDateTime.now();
     }
 
-    public LocalDateTime endRound(Bet bet) {
+    public LocalDateTime endRound() {
+        isRunning = false;
         return LocalDateTime.now();
     }
 

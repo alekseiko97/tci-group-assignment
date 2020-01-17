@@ -89,6 +89,23 @@ public class BetRoundTest {
 
     }
 
+    /**
+     * This test should pass if bet round can be started after obtaining a unique token from gaming authority via casino
+     * This is to test the behavior of the method startRound(string token)
+     */
+    @Test
+    public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
+        // arrange
+        Casino casino = new Casino();
+        BetRound betRound = casino.createBetRound();
+        String token = casino.getUniqueToken(betRound.getBetId());
+
+        // act
+        betRound.startRound(token);
+
+        // assert
+        Assert.assertTrue(betRound.getBetRoundStatus());
+    }
 
     /**
      * This test should be passed if the balance of the card is updated successfully with the amount won when the round has ended
