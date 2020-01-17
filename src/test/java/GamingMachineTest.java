@@ -78,8 +78,23 @@ public class GamingMachineTest {
 
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
+
     }
 
+    /**
+     * If the card balance is below the bet amount, an Exception should be thrown
+     * @throws Exception
+     */
+
+    @Test (expected = Exception.class)
+    public void placingBetViaCardWithInsufficientBalanceShouldThrowAnException() throws Exception {
+        // arrange
+        Card card = BankTeller.Cashier.issueCard(); // actual card
+        BankTeller.Cashier.updateCardBalance(card, 55.00);
+
+        // act
+        gm.placeBet(card, betRound, new Bet(60.00));
+    }
 
 
 }
