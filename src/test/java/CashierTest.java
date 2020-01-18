@@ -35,11 +35,11 @@ public class CashierTest {
     @Test
     public void aCardWithInsufficientBalanceShouldReturnFalse(){
         //arrange
-        Card c = BankTeller.Cashier.issueCard();
+        Card cardToTest = BankTeller.Cashier.issueCard();
 
         //act
-        BankTeller.Cashier.updateCardBalance(c, 50);
-        boolean actualResult = BankTeller.Cashier.checkCardBalance(c, 50);
+        BankTeller.Cashier.updateCardBalance(cardToTest, 50);
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 50);
 
         //assert
         Assert.assertTrue(actualResult);
@@ -52,9 +52,9 @@ public class CashierTest {
     @Test
     public void aCardWithSufficientBalanceShouldReturnFalse(){
         //arrange
-
+        Card cardToTest = BankTeller.Cashier.issueCard();
         //act
-        boolean actualResult = BankTeller.Cashier.checkCardBalance(BankTeller.Cashier.issueCard(), 200.0);
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 200.0);
 
         //assert
         Assert.assertFalse( actualResult);
