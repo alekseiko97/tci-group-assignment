@@ -192,8 +192,8 @@ public class BetRoundTest {
     }
 
     /*
-        This test should pass if bet round is able to get a random whole number
-        This is to test the behavior of method Integer getRandomValue(String token)
+     *  This test should pass if bet round is able to get a random whole number
+     *  This is to test the behavior of method Integer getRandomValue(String token)
      */
     @Test
     public void betRoundCanAskForRandomValue() {
@@ -209,16 +209,39 @@ public class BetRoundTest {
         Assert.assertNotNull(value);
     }
 
+    /**
+     * This test should pass if IllegalArgumentException is thrown when an invalid token is provided as
+     * a parameter to the function getRandomValue(String token) - null or empty string
+     */
+
     @Test(expected = IllegalArgumentException.class)
     public void requestingRandomValueByProvidingInvalidTokenShouldThrowAnException() {
         // arrange
-        BettingAuthority bettingAuthority = new BettingAuthority();
-        BetRound betRound = new BetRound(bettingAuthority);
+        BetRound betRound = new BetRound(new BettingAuthority());
 
         // act
         betRound.getRandomValue(null);
     }
 
+    /**
+     * A betting round (with it’s token) can ask multiple times for a random value.
+     * Test will pass if bet round is able to get two different random numbers
+     */
+    @Test
+    public void bettingRoundCanAskMultipleTimesForRandomValue() {
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound betRound = new BetRound(bettingAuthority);
+        Casino casino = new Casino(bettingAuthority);
+        // casino asks betting authority for a unique token
+        String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
+        // act
+        Integer value1 = betRound.getRandomValue(token);
+        Integer value2 = betRound.getRandomValue(token);
+
+        // assert
+        Assert.assertNotSame(value1, value2);
+    }
 
 }

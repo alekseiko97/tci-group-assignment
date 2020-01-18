@@ -56,6 +56,7 @@ public class CardTest {
         card.placeBet(betRound,10.0);
         //assert
         Assert.assertEquals(1, card.getListOfBets().size());
-
     }
+
+
 }
