@@ -7,11 +7,6 @@ import static org.mockito.Mockito.mock;
 
 public class CardTest {
 
-    /**
-     *Test should pass when card details(timestamp & list of bets) are reset
-     *This is to test the behaviour of method void returnCardToCashier()
-     */
-
     private Card card;
 
     @Before
@@ -19,6 +14,11 @@ public class CardTest {
         card = new Card();
         card.connectToGamingMachine(GameType.BlackJack);
     }
+
+    /**
+     *Test should pass when card details(timestamp & list of bets) are reset
+     *This is to test the behaviour of method void returnCardToCashier()
+     */
 
     @Test
     public void cardSuccessfullyReturnedToCashier()
@@ -57,6 +57,26 @@ public class CardTest {
         //assert
         Assert.assertEquals(1, card.getListOfBets().size());
     }
+
+    /**
+     * A gambler can make multiple bets per betting round
+     * Test will pass if two bets were placed on the same betting round by one card
+     */
+
+    @Test
+    public void makingMultipleBetsPerOneBettingRoundShouldBePossible() {
+        // arrange
+        BetRound betRound = new BetRound(new BettingAuthority());
+
+        // act
+        card.placeBet(betRound, 20);
+        card.placeBet(betRound, 30);
+
+        // assert
+        Assert.assertEquals(2, betRound.getListOfBets().size());
+
+    }
+
 
 
 }
