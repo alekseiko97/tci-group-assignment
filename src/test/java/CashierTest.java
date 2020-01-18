@@ -69,7 +69,7 @@ public class CashierTest {
         //arrange
         Card c = BankTeller.Cashier.issueCard();
         //act
-        BankTeller.Cashier.updateCardBalance(c, 0);
+        BankTeller.Cashier.updateCardBalance(c, -2);
         //assert
     }
 
