@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class BankTeller {
     public static class Cashier {
 
         private static HashMap<Card, Double> cashToCard = new HashMap<>();
+        public static BettingAuthority bettingAuthority = new BettingAuthority();
+        public static boolean isLogCardHandedOut = false;
 
         /**
          * @param c
@@ -37,6 +40,8 @@ public class BankTeller {
             Card card = new Card();
             // initial amount is 0.0
             cashToCard.put(card, 0.0);
+            bettingAuthority.logCardHandedOut(card, String.valueOf(LocalDateTime.now()));
+            isLogCardHandedOut=true;
             return card;
         }
 
@@ -48,6 +53,10 @@ public class BankTeller {
         public static void resetCard (Card card) {
             card.returnCardToCashier();
             cashToCard.remove(card);
+        }
+
+        public static double getCardBalance(Card card) {
+           return cashToCard.get(card);
         }
     }
 }

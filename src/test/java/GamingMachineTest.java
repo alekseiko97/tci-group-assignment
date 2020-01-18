@@ -1,14 +1,14 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class GamingMachineTest {
 
     GameType gameType = GameType.BlackJack;
     GamingMachine gm = new GamingMachine(gameType);
-    Casino casino = new Casino();
+    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+    Casino casino = new Casino(bettingAuthority);
     BetRound betRound = casino.createBetRound();
     Card card = mock(Card.class);
 
@@ -27,6 +27,20 @@ public class GamingMachineTest {
 
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
+    }
+
+    /**
+     * This test is intended to ensure that gaming machine gets assigned a unique ID upon creation
+     * Test should pass if two gaming machine id's are not equal
+     */
+    @Test
+    public void machineIdShouldBeUnique() {
+        // arrange
+        GamingMachine gm1 = new GamingMachine(gameType);
+        GamingMachine gm2 = new GamingMachine(gameType);
+
+        // assert
+        Assert.assertNotSame("Gaming machine id's are not unique", gm1.getMachineID(), gm2.getMachineID());
     }
 
     /**
@@ -95,6 +109,4 @@ public class GamingMachineTest {
         // act
         gm.placeBet(card, betRound, new Bet(60.00));
     }
-
-
 }

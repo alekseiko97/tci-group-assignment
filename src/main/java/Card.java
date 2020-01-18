@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class Card {
+    public UUID getCardId() {
+        return cardId;
+    }
+
     private UUID cardId;
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
-    private GamingMachine gamingMachine = null;
+    private GamingMachine gamingMachine;
 
     public Card() {
         this.cardId = UUID.randomUUID();
@@ -30,8 +34,8 @@ public class Card {
         return this.listOfBets;
     }
 
-    public boolean connectToGamingMachine(GameType blackJack) {
-        GamingMachine gm = new GamingMachine(blackJack);
+    public boolean connectToGamingMachine(GameType gameType) {
+        GamingMachine gm = new GamingMachine(gameType);
         gm.addCardToConnectedCards(this);
         this.gamingMachine = gm;
         return true;
@@ -39,12 +43,11 @@ public class Card {
 
     public void placeBet(BetRound betRound, double betAmount) {
         Bet bet = new Bet(betAmount);
-
         try {
-            gamingMachine.placeBet(this, betRound, bet);
+            this.gamingMachine.placeBet(this, betRound, bet);
             this.listOfBets.add(bet);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + ". Not connected to gaming machine");
         }
 
     }

@@ -7,9 +7,13 @@ public class Bet {
     }
 
     private double inAmount;
+
+    public UUID getBetId() {
+        return betId;
+    }
+
     private UUID betId;
     private LocalDateTime timestamp;
-
 
 
     public Bet(double inAmount) {

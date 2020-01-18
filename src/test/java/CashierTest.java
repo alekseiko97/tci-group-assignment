@@ -6,12 +6,20 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
+
 public class CashierTest {
 
 
     /**
      * This test should be passed when a new card is given to the gambler successfully by the cashier
      * This is created to test Card issueCard() method
+     * This test should be passed when a new card is issued successfully by the cashier
+     * This test is created to test Card issueCard() method
      */
     @Test
     public void aNewCardShouldBeAssignedToGamblerSuccessfully(){
@@ -58,6 +66,12 @@ public class CashierTest {
 
         //assert
         Assert.assertFalse( actualResult);
+    public void aNewCardShouldBeAssignedSuccessfully(){
+        //arrange
+        //act
+        Card card = BankTeller.Cashier.issueCard();
+        //assert
+        assertNotNull(card);
     }
 
     /**
@@ -99,6 +113,19 @@ public class CashierTest {
         BankTeller.Cashier.resetCard(cardShouldBeReset);
         //assert
         verify(cardShouldBeReset).returnCardToCashier();
+    }
+
+    /**
+     * Test should be passed when logCardHandedOut from BettingAuthority is being called from Cashier-> issueCard
+     * this test is created to test Card issueCard()
+     */
+    @Test
+    public void logCardHandedOutWhenCardIsIssuedSuccessfullyFromIssueCard(){
+        //arrange
+        //act
+        Card card = BankTeller.Cashier.issueCard();
+        //assert
+        assertEquals(true, BankTeller.Cashier.isLogCardHandedOut);
     }
 
 }
