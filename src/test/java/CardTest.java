@@ -11,11 +11,22 @@ public class CardTest {
     private final GameType DUMMY_GAME_TYPE = GameType.BlackJack;
 
     @Before
-    public void before() throws Exception {
+    public void before()  {
         card = new Card();
         card.connectToGamingMachine(DUMMY_GAME_TYPE);
     }
 
+    /**
+     * Test should pass if two cards id's are not the same, in other words, unique
+     */
+    @Test
+    public void cardIDShouldBeUnique() {
+        // arrange
+        Card card2 = new Card();
+
+        // assert
+        Assert.assertNotEquals("Card id's are not unique", card.getCardId(), card2.getCardId());
+    }
     /**
      *Test should pass when card details(timestamp & list of bets) are reset
      *This is to test the behaviour of method void returnCardToCashier()
