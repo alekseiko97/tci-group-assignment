@@ -52,16 +52,12 @@ public class BankTeller {
          */
         public static void resetCard (Card card) {
             card.returnCardToCashier();
-            cashToCard.remove(card);
         }
 
         /**
-         *
-         * @param card
          * @return the balance of a card
          */
         public static Double getCardBalance(Card card) {
-
            return cashToCard.get(card);
         }
     }
