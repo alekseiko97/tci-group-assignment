@@ -235,10 +235,11 @@ public class BetRoundTest {
         Casino casino = new Casino(bettingAuthority);
         // casino asks betting authority for a unique token
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
+        betRound.setToken(token);
 
         // act
-        Integer value1 = betRound.getRandomValue(token);
-        Integer value2 = betRound.getRandomValue(token);
+        Integer value1 = betRound.getRandomValue(betRound.getToken());
+        Integer value2 = betRound.getRandomValue(betRound.getToken());
 
         // assert
         Assert.assertNotSame(value1, value2);
