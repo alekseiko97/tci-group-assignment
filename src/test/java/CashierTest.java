@@ -114,4 +114,22 @@ public class CashierTest {
         assertEquals(true, BankTeller.Cashier.isLogCardHandedOut);
     }
 
+    /**
+     * Test should be passed when a cashier wants to get the balance of a card
+     * This test is created to test  Double getCardBalance(Card card) method
+     */
+    @Test
+    public void balanceOfACardShouldBeGetSuccessful(){
+        //arrange
+        Card cardToTest = BankTeller.Cashier.issueCard();
+        BankTeller.Cashier.updateCardBalance(cardToTest, 20);
+        Double expectedBalance = 20.0;
+
+        //act
+        Double actualBalance = BankTeller.Cashier.getCardBalance(cardToTest);
+
+        //assert
+        Assert.assertEquals("Balance of a card is not returned correctly!", expectedBalance, actualBalance);
+    }
+
 }

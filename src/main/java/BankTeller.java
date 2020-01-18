@@ -55,7 +55,13 @@ public class BankTeller {
             cashToCard.remove(card);
         }
 
-        public static double getCardBalance(Card card) {
+        /**
+         *
+         * @param card
+         * @return the balance of a card
+         */
+        public static Double getCardBalance(Card card) {
+
            return cashToCard.get(card);
         }
     }
