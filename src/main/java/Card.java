@@ -12,7 +12,7 @@ public class Card {
     private UUID cardId;
     private LocalDateTime timestamp;
     private List<Bet> listOfBets;
-    private GamingMachine gamingMachine = null;
+    private GamingMachine gamingMachine;
 
     public Card() {
         this.cardId = UUID.randomUUID();
@@ -44,7 +44,6 @@ public class Card {
     public void placeBet(BetRound betRound, double betAmount) {
         Bet bet = new Bet(betAmount);
         try {
-            //this.gamingMachine = new GamingMachine(GameType.BlackJack);
             this.gamingMachine.placeBet(this, betRound, bet);
             this.listOfBets.add(bet);
         } catch (Exception e) {

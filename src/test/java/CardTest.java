@@ -8,11 +8,12 @@ import static org.mockito.Mockito.mock;
 public class CardTest {
 
     private Card card;
+    private final GameType DUMMY_GAME_TYPE = GameType.BlackJack;
 
     @Before
     public void before() throws Exception {
         card = new Card();
-        //card.connectToGamingMachine(GameType.BlackJack);
+        card.connectToGamingMachine(DUMMY_GAME_TYPE);
     }
 
     /**
@@ -79,7 +80,6 @@ public class CardTest {
     @Test
     public void cardBalanceShouldBeDecrementedAfterPlacingABet() {
         // arrange
-        Card card = BankTeller.Cashier.issueCard(); // actual card
         BetRound betRound = new Casino(mock(BettingAuthority.class)).createBetRound();
         // deposit some money
         BankTeller.Cashier.updateCardBalance(card, 20);
