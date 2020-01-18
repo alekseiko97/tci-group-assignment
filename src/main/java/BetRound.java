@@ -60,6 +60,7 @@ public class BetRound {
     }
 
     public Integer getRandomValue(String token) {
+        if (token == null || token.isEmpty()) { throw new IllegalArgumentException("Token cannot be null or empty"); }
         return this.bettingAuthority.getRandomWholeNumber(token);
     }
 }

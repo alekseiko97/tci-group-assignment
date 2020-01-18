@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDateTime;
 
@@ -6,19 +7,24 @@ import static org.mockito.Mockito.mock;
 
 public class CardTest {
 
-    private static final double BET_AMOUNT = 50.0;
-    // arrange
-    Card card = new Card();
-
     /**
      *Test should pass when card details(timestamp & list of bets) are reset
      *This is to test the behaviour of method void returnCardToCashier()
      */
+
+    private Card card;
+
+    @Before
+    public void before() throws Exception {
+        card = new Card();
+        card.connectToGamingMachine(GameType.BlackJack);
+    }
+
     @Test
     public void cardSuccessfullyReturnedToCashier()
     {
         //arrange
-        Card card = new Card();
+       // Card card = new Card();
         //act
         card.returnCardToCashier();
         //assert
@@ -34,11 +40,11 @@ public class CardTest {
     public void cardIsConnectedToGamingMachineWithValidGameType()
     {
         //arrange
-        Card card = new Card();
+        //Card card = new Card();
         //act
         boolean result = card.connectToGamingMachine(GameType.BlackJack);
         //assert
-        Assert.assertEquals(true, result);
+        Assert.assertTrue(result);
     }
 
     /**
@@ -49,24 +55,13 @@ public class CardTest {
     public void successfullyPlaceABet()
     {
         //arrange
-        Card card = new Card();
-        BetRound betRound = new BetRound(new BettingAuthority());
-        GamingMachine gm = new GamingMachine(GameType.BlackJack);
+        //Card card = new Card();
+        //card.connectToGamingMachine(GameType.BlackJack);
+        BetRound betRound = new BetRound(mock(BettingAuthority.class));
         //act
         card.placeBet(betRound,10.0);
         //assert
         Assert.assertEquals(1, card.getListOfBets().size());
 
     }
-
-
-    /**
-     *test should pass when it throws exception in case of amount is incorrect while depositing money to the *provided card
-     *testing method void depositMoney(double amount,Card card)
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void DepositMoneyInCardShouldThrowExceptionWhenAmountIsInCorrect()
-    {
-    }
-
 }

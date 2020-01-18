@@ -43,12 +43,11 @@ public class Card {
 
     public void placeBet(BetRound betRound, double betAmount) {
         Bet bet = new Bet(betAmount);
-
         try {
             gamingMachine.placeBet(this, betRound, bet);
             this.listOfBets.add(bet);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + ". Not connected to gaming machine");
         }
 
     }
