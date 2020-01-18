@@ -95,6 +95,4 @@ public class GamingMachineTest {
         // act
         gm.placeBet(card, betRound, new Bet(60.00));
     }
-
-
 }

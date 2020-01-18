@@ -34,8 +34,8 @@ public class Card {
         return this.listOfBets;
     }
 
-    public boolean connectToGamingMachine(GameType blackJack) {
-        GamingMachine gm = new GamingMachine(blackJack);
+    public boolean connectToGamingMachine(GameType gameType) {
+        GamingMachine gm = new GamingMachine(gameType);
         gm.addCardToConnectedCards(this);
         this.gamingMachine = gm;
         return true;
@@ -44,7 +44,8 @@ public class Card {
     public void placeBet(BetRound betRound, double betAmount) {
         Bet bet = new Bet(betAmount);
         try {
-            gamingMachine.placeBet(this, betRound, bet);
+            //this.gamingMachine = new GamingMachine(GameType.BlackJack);
+            this.gamingMachine.placeBet(this, betRound, bet);
             this.listOfBets.add(bet);
         } catch (Exception e) {
             System.out.println(e.getMessage() + ". Not connected to gaming machine");

@@ -12,7 +12,7 @@ public class CardTest {
     @Before
     public void before() throws Exception {
         card = new Card();
-        card.connectToGamingMachine(GameType.BlackJack);
+        //card.connectToGamingMachine(GameType.BlackJack);
     }
 
     /**
@@ -47,36 +47,49 @@ public class CardTest {
      *Test should pass when a bet is placed successfully by a card
      * This is to test the behaviour of method void placeBet() using a card
      */
-    @Test
-    public void successfullyPlaceABet()
-    {
-        //arrange
-        BetRound betRound = new BetRound(mock(BettingAuthority.class));
-        //act
-        card.placeBet(betRound,10.0);
-        //assert
-        Assert.assertEquals(1, card.getListOfBets().size());
-    }
+//    @Test
+//    public void successfullyPlaceABet()
+//    {
+//        //arrange
+//        BetRound betRound = new BetRound(mock(BettingAuthority.class));
+//        //act
+//        card.placeBet(betRound,10.0);
+//        //assert
+//        Assert.assertEquals(1, card.getListOfBets().size());
+//    }
+//
+//    /**
+//     * A gambler can make multiple bets per betting round
+//     * Test will pass if two bets were placed on the same betting round by one card
+//     */
+//
+//    @Test
+//    public void makingMultipleBetsPerOneBettingRoundShouldBePossible() {
+//        // arrange
+//        BetRound betRound = new BetRound(new BettingAuthority());
+//
+//        // act
+//        card.placeBet(betRound, 20);
+//        card.placeBet(betRound, 30);
+//
+//        // assert
+//        Assert.assertEquals(2, betRound.getListOfBets().size());
+//    }
 
-    /**
-     * A gambler can make multiple bets per betting round
-     * Test will pass if two bets were placed on the same betting round by one card
-     */
-
     @Test
-    public void makingMultipleBetsPerOneBettingRoundShouldBePossible() {
+    public void cardBalanceShouldBeDecrementedAfterPlacingABet() {
         // arrange
-        BetRound betRound = new BetRound(new BettingAuthority());
+        Card card = BankTeller.Cashier.issueCard(); // actual card
+        BetRound betRound = new Casino(mock(BettingAuthority.class)).createBetRound();
+        // deposit some money
+        BankTeller.Cashier.updateCardBalance(card, 20);
 
         // act
-        card.placeBet(betRound, 20);
-        card.placeBet(betRound, 30);
+        card.placeBet(betRound, 15);
+        double newBalance = BankTeller.Cashier.getCardBalance(card);
 
         // assert
-        Assert.assertEquals(2, betRound.getListOfBets().size());
-
+        Assert.assertEquals("New balance is not as expected", 5, newBalance, 0);
     }
-
-
 
 }
