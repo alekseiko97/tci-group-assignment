@@ -23,8 +23,6 @@ public class CardTest {
     @Test
     public void cardSuccessfullyReturnedToCashier()
     {
-        //arrange
-       // Card card = new Card();
         //act
         card.returnCardToCashier();
         //assert
@@ -39,8 +37,6 @@ public class CardTest {
     @Test
     public void cardIsConnectedToGamingMachineWithValidGameType()
     {
-        //arrange
-        //Card card = new Card();
         //act
         boolean result = card.connectToGamingMachine(GameType.BlackJack);
         //assert
@@ -55,8 +51,6 @@ public class CardTest {
     public void successfullyPlaceABet()
     {
         //arrange
-        //Card card = new Card();
-        //card.connectToGamingMachine(GameType.BlackJack);
         BetRound betRound = new BetRound(mock(BettingAuthority.class));
         //act
         card.placeBet(betRound,10.0);
