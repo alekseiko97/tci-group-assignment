@@ -30,6 +30,20 @@ public class GamingMachineTest {
     }
 
     /**
+     * This test is intended to ensure that gaming machine gets assigned a unique ID upon creation
+     * Test should pass if two gaming machine id's are not equal
+     */
+    @Test
+    public void machineIdShouldBeUnique() {
+        // arrange
+        GamingMachine gm1 = new GamingMachine(gameType);
+        GamingMachine gm2 = new GamingMachine(gameType);
+
+        // assert
+        Assert.assertNotSame("Gaming machine id's are not unique", gm1.getMachineID(), gm2.getMachineID());
+    }
+
+    /**
      * Test should pass when exception is thrown in case of betAmount is incorrect while placing a bet
      * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
