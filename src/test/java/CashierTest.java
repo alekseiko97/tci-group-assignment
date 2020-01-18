@@ -87,6 +87,21 @@ public class CashierTest {
     }
 
     /**
+     * This test should be passed when updating the credit on the card which is not in the card list with the sufficient amount
+     * This test is created to test void updateCardCredit(Card c, double amount) method
+     */
+    @Test
+    public void updateANewCardBalanceWhichIsNotInTheCardListWithSufficientAmountShouldBeSuccessful(){
+        //arrange
+        Card cardNotInTheList = new Card();
+        Double expectedBalanceAfterUpdate = 20.0;
+        //act
+        BankTeller.Cashier.updateCardBalance(cardNotInTheList, 20);
+        Double actualBalanceAfterUpdate = BankTeller.Cashier.getCardBalance(cardNotInTheList);
+        //assert
+        Assert.assertEquals("Update the balance for a card which is not in the card list is not correct", expectedBalanceAfterUpdate, actualBalanceAfterUpdate);
+    }
+    /**
      * This test should be passed when a card is handed back to the cashier, the method returnCardToCashier()
      * is called from Card class
      * This test is created to test void resetCard(Card c) method
