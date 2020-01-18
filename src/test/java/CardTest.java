@@ -8,12 +8,15 @@ import static org.mockito.Mockito.mock;
 public class CardTest {
 
     private Card card;
+    private BetRound betRound;
     private final GameType DUMMY_GAME_TYPE = GameType.BlackJack;
 
     @Before
     public void before()  {
         card = new Card();
+        betRound = new BetRound(mock(BettingAuthority.class));
         card.connectToGamingMachine(DUMMY_GAME_TYPE);
+        BankTeller.Cashier.updateCardBalance(card, 200);
     }
 
     /**
@@ -59,45 +62,56 @@ public class CardTest {
      *Test should pass when a bet is placed successfully by a card
      * This is to test the behaviour of method void placeBet() using a card
      */
-//    @Test
-//    public void successfullyPlaceABet()
-//    {
-//        //arrange
-//        BetRound betRound = new BetRound(mock(BettingAuthority.class));
-//        //act
-//        card.placeBet(betRound,10.0);
-//        //assert
-//        Assert.assertEquals(1, card.getListOfBets().size());
-//    }
-//
-//    /**
-//     * A gambler can make multiple bets per betting round
-//     * Test will pass if two bets were placed on the same betting round by one card
-//     */
-//
-//    @Test
-//    public void makingMultipleBetsPerOneBettingRoundShouldBePossible() {
-//        // arrange
-//        BetRound betRound = new BetRound(new BettingAuthority());
-//
-//        // act
-//        card.placeBet(betRound, 20);
-//        card.placeBet(betRound, 30);
-//
-//        // assert
-//        Assert.assertEquals(2, betRound.getListOfBets().size());
-//    }
+    @Test
+    public void successfullyPlaceABet()
+    {
+        //act
+        card.placeBet(betRound,10.0);
+        //assert
+        Assert.assertEquals(1, card.getListOfBets().size());
+    }
+
+    /**
+     * A gambler can make multiple bets per betting round
+     * Test will pass if two bets were placed on the same betting round by one card
+     */
+
+    @Test
+    public void placingMultipleBetsPerOneBettingRoundShouldBePossible() {
+        // act
+        card.placeBet(betRound, 20);
+        card.placeBet(betRound, 30);
+
+        // assert
+        Assert.assertEquals(2, betRound.getListOfBets().size());
+    }
+
+    /**
+     * A gambler can make multiple bets per betting round, but each of them should be unique.
+     */
+
+    @Test
+    public void multiplePlacedBetsNeedToBeUnique() {
+        // act
+        card.placeBet(betRound, 20);
+        card.placeBet(betRound, 30);
+
+        // assert
+        Assert.assertNotSame("Bets are not unique", betRound.getListOfBets().get(0), betRound.getListOfBets().get(1));
+    }
+
 
     @Test
     public void cardBalanceShouldBeDecrementedAfterPlacingABet() {
         // arrange
-        BetRound betRound = new Casino(mock(BettingAuthority.class)).createBetRound();
+        Card testCard = BankTeller.Cashier.issueCard();
+        testCard.connectToGamingMachine(GameType.BlackJack);
         // deposit some money
-        BankTeller.Cashier.updateCardBalance(card, 20);
+        BankTeller.Cashier.updateCardBalance(testCard, 20);
 
         // act
-        card.placeBet(betRound, 15);
-        double newBalance = BankTeller.Cashier.getCardBalance(card);
+        testCard.placeBet(betRound, 15);
+        double newBalance = BankTeller.Cashier.getCardBalance(testCard);
 
         // assert
         Assert.assertEquals("New balance is not as expected", 5, newBalance, 0);

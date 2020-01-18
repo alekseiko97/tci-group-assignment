@@ -16,7 +16,6 @@ public class Bet {
     private LocalDateTime timestamp;
 
 
-
     public Bet(double inAmount) {
 
         this.inAmount = inAmount;
