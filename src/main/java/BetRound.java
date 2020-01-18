@@ -58,4 +58,8 @@ public class BetRound {
     public boolean getBetRoundStatus() {
         return this.isRunning;
     }
+
+    public Integer getRandomValue(String token) {
+        return this.bettingAuthority.getRandomWholeNumber(token);
+    }
 }

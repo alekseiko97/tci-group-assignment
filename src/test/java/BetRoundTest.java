@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class BetRoundTest {
 
     double AMOUNT = 20.0;
-    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+    BettingAuthority bettingAuthorityMock = mock(BettingAuthority.class);
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -105,7 +105,7 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino(bettingAuthority);
+        Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
@@ -119,7 +119,7 @@ public class BetRoundTest {
     @Test(expected = IllegalArgumentException.class)
     public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
         // arrange
-        Casino casino = new Casino(bettingAuthority);
+        Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
 
         // act
@@ -175,7 +175,7 @@ public class BetRoundTest {
 
     /**
      * Test should be passed when logEnd from BettingAuthority is being called from BetRound-> endRound
-     * this test is created to test void endRound()
+     * This test is created to test void endRound()
      */
     @Test
     public void logBettingRoundSuccessfullyFromEndRound(){
@@ -191,6 +191,33 @@ public class BetRoundTest {
         verify(bettingAuthority, times(1)).logEnd(round, winningBet, timeStampTest);
     }
 
+    /*
+        This test should pass if bet round is able to get a random whole number
+        This is to test the behavior of method Integer getRandomValue(String token)
+     */
+    @Test
+    public void betRoundCanAskForRandomValue() {
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound betRound = new BetRound(bettingAuthority);
+        betRound.setToken("token");
+
+        // act
+        Integer value = betRound.getRandomValue(betRound.getToken());
+
+        // assert
+        Assert.assertNotNull(value);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void requestingRandomValueByProvidingInvalidTokenShouldThrowAnException() {
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound betRound = new BetRound(bettingAuthority);
+
+        // act
+        betRound.getRandomValue(null);
+    }
 
 
 
