@@ -153,7 +153,7 @@ public class BetRoundTest {
      * this test is created for List<Bet> getListOfPlaceBets() method
      */
     @Test
-    public void listOfPlacedBetsShouldBeReturnedSuccessfully(){
+    public void listOfPlacedBetsShouldBeReturnedSuccessfully() {
         //arrange
 //        BetRound round = new BetRound();
 //        Bet bet1 = new Bet();
@@ -163,8 +163,8 @@ public class BetRoundTest {
 //        expectedResult.add(bet2);
 
         //act
-       // List<Bet> actualResult = round.getListOfBet();
-
+        // List<Bet> actualResult = round.getListOfBet();
+    }
     /**
      * Test should be passed when logBettingRound from BettingAuthority is being called from BetRound-> startRound
      * this test is created to test void logBettingRound(BetRound betRound, String token)
@@ -253,9 +253,6 @@ public class BetRoundTest {
 
         // assert
         Assert.assertNotSame(value1, value2);
-    }
-
-        //assert
        // Assert.assertEquals("List of Bets is not returned correctly", expectedResult, actualResult);
     }
 }

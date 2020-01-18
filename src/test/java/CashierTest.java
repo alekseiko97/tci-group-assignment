@@ -1,25 +1,16 @@
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 import static org.mockito.Mockito.*;
-
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
 
 public class CashierTest {
-
-
     /**
      * This test should be passed when a new card is given to the gambler successfully by the cashier
      * This is created to test Card issueCard() method
-     * This test should be passed when a new card is issued successfully by the cashier
-     * This test is created to test Card issueCard() method
      */
     @Test
     public void aNewCardShouldBeAssignedToGamblerSuccessfully(){
@@ -34,6 +25,7 @@ public class CashierTest {
         Assert.assertEquals("Card is not created correctly by cashier", expectedMonth, actualCard.getTimestamp().getMonth());
         Assert.assertEquals("Card is not created correctly by cashier", expectedDate, actualCard.getTimestamp().getDayOfWeek());
         Assert.assertEquals("Card is not created correctly by cashier", expectedHour, actualCard.getTimestamp().getHour());
+        assertNotNull(actualCard);
     }
 
     /**
@@ -43,10 +35,10 @@ public class CashierTest {
     @Test
     public void aCardWithInsufficientBalanceShouldReturnFalse(){
         //arrange
-        //act
         Card c = BankTeller.Cashier.issueCard();
-        BankTeller.Cashier.updateCardBalance(c, 50);
 
+        //act
+        BankTeller.Cashier.updateCardBalance(c, 50);
         boolean actualResult = BankTeller.Cashier.checkCardBalance(c, 50);
 
         //assert
@@ -66,12 +58,6 @@ public class CashierTest {
 
         //assert
         Assert.assertFalse( actualResult);
-    public void aNewCardShouldBeAssignedSuccessfully(){
-        //arrange
-        //act
-        Card card = BankTeller.Cashier.issueCard();
-        //assert
-        assertNotNull(card);
     }
 
     /**
