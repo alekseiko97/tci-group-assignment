@@ -175,7 +175,7 @@ public class BetRoundTest {
 
     /**
      * Test should be passed when logEnd from BettingAuthority is being called from BetRound-> endRound
-     * this test is created to test void endRound()
+     * This test is created to test void endRound()
      */
     @Test
     public void logBettingRoundSuccessfullyFromEndRound(){
@@ -193,6 +193,7 @@ public class BetRoundTest {
 
     /*
         This test should pass if bet round is able to get a random whole number
+        This is to test the behavior of method Integer getRandomValue(String token)
      */
     @Test
     public void betRoundCanAskForRandomValue() {
@@ -208,5 +209,14 @@ public class BetRoundTest {
         Assert.assertNotNull(value);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void requestingRandomValueByProvidingInvalidTokenShouldThrowAnException() {
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound betRound = new BetRound(bettingAuthority);
+
+        // act
+        betRound.getRandomValue(null);
+    }
 
 }
