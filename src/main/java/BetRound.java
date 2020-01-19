@@ -8,6 +8,7 @@ public class BetRound {
     private String token;
     private List<Bet> bets;
     private boolean isRunning;
+    private double winningAmount;
     private BettingAuthority bettingAuthority;
 
     public BetRound(BettingAuthority bettingAuthority) {
@@ -15,6 +16,7 @@ public class BetRound {
         this.bets = new ArrayList<Bet>();
         this.isRunning = false;
         this.bettingAuthority = bettingAuthority;
+        this.winningAmount = 0.0;
     }
 
     public LocalDateTime startRound(String token) {
@@ -32,12 +34,18 @@ public class BetRound {
         String timeStamp = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         isRunning = false;
         bettingAuthority.logEnd(this, winingBet, timeStamp);
+        for(Bet bet : bets){
+            winningAmount += bet.getInAmount();
+        }
         return LocalDateTime.now();
     }
 
-    public Double placeBet(Bet bet) {
+    public double getWinningAmount(){
+        return this.winningAmount;
+    }
+
+    public void placeBet(Bet bet) {
         this.bets.add(bet);
-        return (Double) 0.0;
     }
 
     public void setToken(String token){
