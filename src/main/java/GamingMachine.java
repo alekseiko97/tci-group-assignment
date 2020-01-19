@@ -29,11 +29,11 @@ public class GamingMachine {
         // if card has sufficient amount to place a bet
         if ((BankTeller.Cashier.checkCardBalance(c, bet.getInAmount()))) {
             BankTeller.Cashier.updateCardBalance(c, -bet.getInAmount());
-                betRound.placeBet(bet);
+            betRound.placeBet(bet);
+        } else {
+            throw new Exception("Card doesn't have enough balance to place a bet");
         }
 
-
-        throw new Exception("Card doesn't have enough balance to place a bet");
     }
 
 

@@ -22,20 +22,20 @@ public class BankTeller {
          *
          * @param c
          * @param amount
-         * If the amount <=0, the method will throw IllegalArgumentException
+         *
          */
         public static void updateCardBalance(Card c, double amount) {
-            if(amount <= 0){
-                throw new IllegalArgumentException ("Insufficient amount");
+
+            if(!cashToCard.containsKey(c)){
+                throw new NullPointerException("Cashier does not know about this Card");
             }
-            else{
-                if (cashToCard.containsKey(c)) {
-                    cashToCard.put(c, cashToCard.get(c) + amount);
-                } else { // if the card was not in the hash map
-                    cashToCard.put(c, amount);
-                }
+
+            if(cashToCard.get(c) + amount < 0)
+                  throw new IllegalArgumentException ("Can not withdraw more than current balance of the card");
+
+            cashToCard.put(c, cashToCard.get(c) + amount);
             }
-        }
+
         public static Card issueCard() {
             Card card = new Card();
             // initial amount is 0.0

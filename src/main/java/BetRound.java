@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class BetRound {
@@ -28,7 +29,17 @@ public class BetRound {
         return LocalDateTime.now();
     }
 
+    public Bet getWinningBet() {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(bets.size()-1);
+        Bet winningBet = bets.get(randomIndex);
+        return winningBet;
+    }
+
     public LocalDateTime endRound(Bet winingBet) {
+        if(!bets.contains(winingBet)){
+            throw new IllegalArgumentException("This bet has not been placed in this round!");
+        }
         //BetRound round, Bet winningBet, LocalDateTime now
         LocalDateTime currentTime = LocalDateTime.now();
         String timeStamp = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
