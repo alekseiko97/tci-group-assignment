@@ -27,5 +27,6 @@ Whenever the changes made in the test code, the test should be run automatically
 * **Aleksei Moskaljuk** - *Initial work* - [alekseiko97](https://github.com/alekseiko97)
 * **Thao Nguyen**  - [ThaoNguyen1511](https://github.com/ThaoNguyen1511)
 * **Sharique Anwer** - [sharique03](https://github.com/sharique03)
-See also the list of [contributors](https://github.com/alekseiko97/tci-group-assignment/contributors) who participated in this project.
+
+* See also the list of [contributors](https://github.com/alekseiko97/tci-group-assignment/contributors) who participated in this project.
 
