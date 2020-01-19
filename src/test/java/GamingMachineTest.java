@@ -21,12 +21,28 @@ public class GamingMachineTest {
     public void gamingMachineCanPlaceBetOnBettingRound() throws Exception {
         // arrange
         double AMOUNT = 50.0;
-
+        BankTeller.Cashier.updateCardBalance(card, AMOUNT);
         // act
-        gm.placeBet(card, betRound, new Bet(AMOUNT));
-
+        gm.placeBet(card, betRound, new Bet(50.0));
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
+    }
+
+    /**
+     * Test should pass when multiple bets are placed sucessfully
+     * This is to test the behavior of the method double placeBet(BetRound betRound, double amount) by calling it multiple times
+     */
+
+    @Test
+    public void gamingMachineCanPlaceMultipleBetOnBettingRound() throws Exception {
+        // arrange
+        double AMOUNT = 100.0;
+        BankTeller.Cashier.updateCardBalance(card, AMOUNT);
+        // act
+        gm.placeBet(card, betRound, new Bet(50.0));
+        gm.placeBet(card, betRound, new Bet(51.0));
+        // assert
+        Assert.assertEquals(2, betRound.getListOfBets().size());
     }
 
     /**
