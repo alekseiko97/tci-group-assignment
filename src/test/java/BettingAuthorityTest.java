@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 
 
@@ -18,7 +20,7 @@ public class BettingAuthorityTest {
     private BettingAuthority bettingAuthority;
     private String token;
     private String timestamp;
-    private List<String> countOfLogs;
+    private static int countOfLogs;
     private Casino casino;
     private BetRound betRound;
     private Bet bet;
@@ -26,9 +28,9 @@ public class BettingAuthorityTest {
     //setup method will be executed first before test
     @Before
     public void setUp(){
+        countOfLogs=0;
         bettingAuthority = new BettingAuthority();
         casino = mock(Casino.class);
-        countOfLogs = new ArrayList<>();
         token = UUID.randomUUID().toString();
         timestamp = LocalDateTime.now().toString();
         betRound = mock(BetRound.class);
@@ -47,7 +49,7 @@ public class BettingAuthorityTest {
         //act
         bettingAuthority.logBettingRound(token,timestamp);
         //assert
-        assertEquals(1,bettingAuthority.loggerList.size());
+        assertEquals(countOfLogs+1,bettingAuthority.loggerList.size());
     }
         /**
          * Test should pass if all bets from the given betting round are logged by the end of the round
@@ -60,7 +62,7 @@ public class BettingAuthorityTest {
         //act
         bettingAuthority.logEnd(betRound,bet,timestamp);
         //assert
-        assertEquals(1, bettingAuthority.loggerList.size());
+        assertEquals(countOfLogs+1, bettingAuthority.loggerList.size());
     }
 
     /**
@@ -75,7 +77,7 @@ public class BettingAuthorityTest {
         //act
         bettingAuthority.logCardHandedOut(card, timestamp);
         //assert
-        assertEquals(1,bettingAuthority.loggerList.size());
+        assertEquals(countOfLogs+1, bettingAuthority.loggerList.size());
     }
 
     /**
@@ -90,28 +92,30 @@ public class BettingAuthorityTest {
         //act
         bettingAuthority.logCardReturned(card, timestamp);
         //assert
-        assertEquals(1,bettingAuthority.loggerList.size());
+        assertEquals(countOfLogs+1, bettingAuthority.loggerList.size());
     }
 
     /**
      * Test should pass if random unique token can be generated and returned as a string
      * Valid betting round ID should be provided
-     * This test is created to test string generateToken(UUID betId)
+     * This test is created to test string getUniqueToken(UUID betId)
      */
 
     @Test
     public void uniqueTokenCanBeGenerated() {
-        throw new NotImplementedException();
+        //arrange
+        //act
+        String result = bettingAuthority.getUniqueToken(token);
+        //assert
+        assertThat(result, containsString(token));
     }
-
     /**
-     * This test should succeed if IllegalArgumentException is thrown in the case when
-     * invalid (e.g. duplicate) bet round ID is provided
-     * This test is created to test string generateToken(UUID betId)
+     * This test should succeed getRandomWholeNumber returns an int random number
+     * This test is created to test Integer getRandomWholeNumber(String token)
      */
 
-    @Test (expected = IllegalArgumentException.class)
-    public void providingInvalidBetRoundIDWhenGeneratingTokenShouldThrowAnException() {
+    @Test
+    public void gettingRandomIntegerNumberFromBettingAuthority() {
         throw new NotImplementedException();
     }
 

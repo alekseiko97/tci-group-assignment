@@ -32,7 +32,8 @@ public class BettingAuthority implements BetLoggingAuthority, BetTokenAuthority 
 
     @Override
     public void logCardReturned(Card c, String timeStamp) {
-
+        logger.info("Log - CardId: " + c.getCardId() + ", timestamp: " + timeStamp);
+        loggerList.add("Log - CardId: " + c.getCardId() + ", timestamp: " + timeStamp);
     }
     @Override
     public void logEnd(BetRound round, Bet winningBet, String timestamp) {
