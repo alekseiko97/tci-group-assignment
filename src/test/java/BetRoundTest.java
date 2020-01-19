@@ -15,8 +15,8 @@ import static org.mockito.Mockito.*;
 
 public class BetRoundTest {
 
-    double AMOUNT;
-    BettingAuthority bettingAuthorityMock;
+    private double AMOUNT;
+    private BettingAuthority bettingAuthorityMock;
 
     @Before
     public void before(){
@@ -138,6 +138,10 @@ public class BetRoundTest {
         Assert.assertTrue(betRound.getBetRoundStatus());
     }
 
+    /**
+     * This test should throw an exception when a round starts with null token
+     * Test is created to test the method  LocalDateTime startRound(String token)
+     */
     @Test(expected = IllegalArgumentException.class)
     public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
         // arrange

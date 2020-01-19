@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 
 public class CasinoTest {
 
-    BettingAuthority bettingAuthority;
-    Casino casino;
+    private BettingAuthority bettingAuthority;
+    private Casino casino;
 
     @Before
     public void before(){

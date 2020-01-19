@@ -100,7 +100,9 @@ public class CardTest {
         Assert.assertNotSame("Bets are not unique", betRound.getListOfBets().get(0), betRound.getListOfBets().get(1));
     }
 
-
+    /**
+     * After placing a bet, balance of a card should be decremented successful
+     */
     @Test
     public void cardBalanceShouldBeDecrementedAfterPlacingABet() {
         // arrange
