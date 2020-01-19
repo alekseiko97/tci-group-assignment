@@ -127,7 +127,7 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino(bettingAuthorityMock);
+        Casino casino = new Casino(new BettingAuthority());
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
 

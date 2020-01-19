@@ -93,7 +93,7 @@ public class CashierTest {
     @Test
     public void updateANewCardBalanceWhichIsNotInTheCardListWithSufficientAmountShouldBeSuccessful(){
         //arrange
-        Card cardNotInTheList = new Card();
+        Card cardNotInTheList = BankTeller.Cashier.issueCard();
         Double expectedBalanceAfterUpdate = 20.0;
         //act
         BankTeller.Cashier.updateCardBalance(cardNotInTheList, 20);
