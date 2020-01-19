@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -14,8 +15,14 @@ import static org.mockito.Mockito.*;
 
 public class BetRoundTest {
 
-    double AMOUNT = 20.0;
-    BettingAuthority bettingAuthorityMock = mock(BettingAuthority.class);
+    private double AMOUNT;
+    private BettingAuthority bettingAuthorityMock;
+
+    @Before
+    public void before(){
+        AMOUNT = 20.0;
+        bettingAuthorityMock = mock(BettingAuthority.class);
+    }
 
     /**
      * This test should be passed when a round starts and returns the date value
@@ -80,7 +87,6 @@ public class BetRoundTest {
         Assert.assertNotNull(actualWinningBet);
     }
 
-
     /**
      * This test should be passed when Bet Value is returned when a bet is placed successfully
      * This test is created to test double placeBet(Bet bet, double betAmount) method
@@ -90,7 +96,6 @@ public class BetRoundTest {
        //arrange
         Bet bet = new Bet(AMOUNT);
         BettingAuthority bettingAuthority = new BettingAuthority();
-
         BetRound round = new BetRound(bettingAuthority);
         //act
         round.placeBet(bet);
@@ -109,15 +114,12 @@ public class BetRoundTest {
         //arrange
         String expectedResult = "TokenBetRound1";
         BettingAuthority bettingAuthority = new BettingAuthority();
-
         BetRound round = new BetRound(bettingAuthority);
         //act
         round.setToken(expectedResult);
         String actualResult = round.getToken();
-
         //assert
         Assert.assertEquals("Token is not set correctly", expectedResult, actualResult);
-
     }
 
     /**
@@ -130,61 +132,25 @@ public class BetRoundTest {
         Casino casino = new Casino(new BettingAuthority());
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
-
         // act
         betRound.startRound(token);
-
         // assert
         Assert.assertTrue(betRound.getBetRoundStatus());
     }
 
+    /**
+     * This test should throw an exception when a round starts with null token
+     * Test is created to test the method  LocalDateTime startRound(String token)
+     */
     @Test(expected = IllegalArgumentException.class)
     public void startOfBettingRoundWithInvalidTokenShouldThrowAnException() {
         // arrange
         Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
-
         // act
         betRound.startRound(null);
     }
 
-    /**
-     * This test should be passed if the balance of the card is updated successfully with the amount won when the round has ended
-     * This test is created to test LocalDate endRound(Cashier cashier, double amount) method
-     */
-    @Test
-    public void balanceOfTheCardIsUpdatedSuccessfullyWithTheAmountWonWhenTheRoundHasEnded(){
-
-    }
-
-
-    /**
-     * Test should be passed if a random number is get successfully for a betting round from its token.
-     * It can be asked to generate for random numbers
-     * This test is created to test int getRandomNumberForGame(GameType gameType) method
-     */
-    @Test
-    public void randomNumberShouldBeGeneratedForABettingRoundFromItsToken(){
-
-    }
-
-    /**
-     * Test should be passed if a list of placed bets is returned successfully
-     * this test is created for List<Bet> getListOfPlaceBets() method
-     */
-    @Test
-    public void listOfPlacedBetsShouldBeReturnedSuccessfully() {
-        //arrange
-//        BetRound round = new BetRound();
-//        Bet bet1 = new Bet();
-//        Bet bet2 = new Bet();
-//        List<Bet> expectedResult = new ArrayList<>();
-//        expectedResult.add(bet1);
-//        expectedResult.add(bet2);
-
-        //act
-        // List<Bet> actualResult = round.getListOfBet();
-    }
     /**
      * Test should be passed when logBettingRound from BettingAuthority is being called from BetRound-> startRound
      * this test is created to test void logBettingRound(BetRound betRound, String token)
@@ -212,8 +178,7 @@ public class BetRoundTest {
     @Test
     public void logBettingRoundSuccessfullyFromEndRound(){
         //arrange
-        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
-        BetRound round = new BetRound(bettingAuthority);
+        BetRound round = new BetRound(bettingAuthorityMock);
         Bet betToPlaceInRound = new Bet(20.0);
         round.placeBet(betToPlaceInRound);
         LocalDateTime currentTime = LocalDateTime.now();
@@ -221,7 +186,7 @@ public class BetRoundTest {
         //act
         round.endRound(betToPlaceInRound);
         //assert
-        verify(bettingAuthority, times(1)).logEnd(round, betToPlaceInRound, timeStampTest);
+        verify(bettingAuthorityMock, times(1)).logEnd(round, betToPlaceInRound, timeStampTest);
     }
 
     /*
@@ -246,12 +211,10 @@ public class BetRoundTest {
      * This test should pass if IllegalArgumentException is thrown when an invalid token is provided as
      * a parameter to the function getRandomValue(String token) - null or empty string
      */
-
     @Test(expected = IllegalArgumentException.class)
     public void requestingRandomValueByProvidingInvalidTokenShouldThrowAnException() {
         // arrange
         BetRound betRound = new BetRound(new BettingAuthority());
-
         // act
         betRound.getRandomValue(null);
     }

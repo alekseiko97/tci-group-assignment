@@ -1,29 +1,40 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
 public class GamingMachineTest {
 
-    GameType gameType = GameType.BlackJack;
-    GamingMachine gm = new GamingMachine(gameType);
-    BettingAuthority bettingAuthority = mock(BettingAuthority.class);
-    Casino casino = new Casino(bettingAuthority);
-    BetRound betRound = casino.createBetRound();
-    Card card = mock(Card.class);
+    private GameType gameType;
+    private GamingMachine gm;
+    private BettingAuthority bettingAuthority;
+    private Casino casino;
+    private BetRound betRound;
+    private Card card;
+
+    @Before
+    public void before(){
+        gameType = GameType.BlackJack;
+        gm = new GamingMachine(gameType);
+        bettingAuthority = mock(BettingAuthority.class);
+        casino = new Casino(bettingAuthority);
+        betRound = casino.createBetRound();
+        card = mock(Card.class);
+    }
 
     /**
      * Test should pass when place a bet is placed by providing betRound
      * This is to test the behavior of the method double placeBet(BetRound betRound, double amount)
      */
-
     @Test
     public void gamingMachineCanPlaceBetOnBettingRound() throws Exception {
         // arrange
         double AMOUNT = 50.0;
-        BankTeller.Cashier.updateCardBalance(card, AMOUNT);
+        Card cardToTest = BankTeller.Cashier.issueCard();
+        BankTeller.Cashier.updateCardBalance(cardToTest, AMOUNT);
         // act
-        gm.placeBet(card, betRound, new Bet(50.0));
+        gm.placeBet(cardToTest, betRound, new Bet(AMOUNT));
         // assert
         Assert.assertEquals(1, betRound.getListOfBets().size());
     }
@@ -32,15 +43,15 @@ public class GamingMachineTest {
      * Test should pass when multiple bets are placed sucessfully
      * This is to test the behavior of the method double placeBet(BetRound betRound, double amount) by calling it multiple times
      */
-
-    @Test
-    public void gamingMachineCanPlaceMultipleBetOnBettingRound() throws Exception {
+    @Test (expected = Exception.class)
+    public void cardDoesNotHaveEnoughBalanceToPlaceBetShouldThrowException() throws Exception {
         // arrange
         double AMOUNT = 100.0;
-        BankTeller.Cashier.updateCardBalance(card, AMOUNT);
+        Card cardToTest = BankTeller.Cashier.issueCard();
+        BankTeller.Cashier.updateCardBalance(cardToTest, AMOUNT);
         // act
-        gm.placeBet(card, betRound, new Bet(50.0));
-        gm.placeBet(card, betRound, new Bet(51.0));
+        gm.placeBet(cardToTest, betRound, new Bet(50.0));
+        gm.placeBet(cardToTest, betRound, new Bet(51.0));
         // assert
         Assert.assertEquals(2, betRound.getListOfBets().size());
     }
@@ -73,7 +84,6 @@ public class GamingMachineTest {
      * Test should pass if the card can be added to the list of connected cards on a gaming machine
      * This is to test the behavior of the method addCardToConnectedCards(Card c)
      */
-
     @Test
     public void cardCanBeConnectedToGamblingMachine() {
         // act
@@ -96,7 +106,6 @@ public class GamingMachineTest {
     /**
      * Test should pass if the card with sufficient amount on it (more or equal to the bet amount) can place a bet
      */
-
     @Test
     public void cardWithSufficientBalanceCanPlaceBet() throws Exception {
         // arrange
@@ -115,7 +124,6 @@ public class GamingMachineTest {
      * If the card balance is below the bet amount, an Exception should be thrown
      * @throws Exception
      */
-
     @Test (expected = Exception.class)
     public void placingBetViaCardWithInsufficientBalanceShouldThrowAnException() throws Exception {
         // arrange
