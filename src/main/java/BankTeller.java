@@ -25,16 +25,20 @@ public class BankTeller {
          * If the amount <=0, the method will throw IllegalArgumentException
          */
         public static void updateCardBalance(Card c, double amount) {
-            if(amount <= 0){
-                throw new IllegalArgumentException ("Insufficient amount");
-            }
-            else{
+
                 if (cashToCard.containsKey(c)) {
-                    cashToCard.put(c, cashToCard.get(c) + amount);
+                    if (amount>0)//when amount is positive then add the amount in the card
+                    {
+                        cashToCard.put(c, cashToCard.get(c) + amount);
+                    }
+                    else {//when amount is negative then deduct the amount from the card
+                        cashToCard.put(c, cashToCard.get(c) - amount);
+                    }
                 } else { // if the card was not in the hash map
                     cashToCard.put(c, amount);
                 }
-            }
+
+
         }
         public static Card issueCard() {
             Card card = new Card();

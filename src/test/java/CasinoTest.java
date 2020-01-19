@@ -50,6 +50,7 @@ public class CasinoTest {
     public void requestingTokenWithInvalidBettingRoundIDShouldThrowAnException() {
         // act
         casino.requestUniqueToken(null);
+        //assert
     }
 
     /**

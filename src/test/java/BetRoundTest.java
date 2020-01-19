@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import java.time.LocalDateTime;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 
@@ -29,7 +31,7 @@ public class BetRoundTest {
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
-        String token = mock(String.class);
+        String token = UUID.randomUUID().toString();
 
         //act
         LocalDateTime actualResult = round.startRound(token);
@@ -72,7 +74,7 @@ public class BetRoundTest {
         BettingAuthority bettingAuthority = new BettingAuthority();
 
         BetRound round = new BetRound(bettingAuthority);
-        Double expectedResult = (Double) 200.0;
+        Double expectedResult = (Double) 20.0;
         //act
         Double actualResult = round.placeBet(bet);
         //assert
@@ -107,9 +109,13 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino(bettingAuthorityMock);
+//        Casino casino = new Casino(bettingAuthorityMock);
+        Casino casino = new Casino(new BettingAuthority());
         BetRound betRound = casino.createBetRound();
+        System.out.println("betRound.getBetRoundID()"+betRound.getBetRoundID());
+
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
+        System.out.println(token);
 
         // act
         betRound.startRound(token);
@@ -172,15 +178,17 @@ public class BetRoundTest {
     @Test
     public void logBettingRoundSuccessfullyFromStartRound(){
         // arrange
-        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
+        BettingAuthority bettingAuthority = new BettingAuthority();
         BetRound round = new BetRound(bettingAuthority);
-        String token = mock(String.class);
-
+        String  token = UUID.randomUUID().toString();
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         // act
         round.startRound(token);
-
         // assert
-        verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
+        System.out.println(bettingAuthority.getLoggerList().size());
+        assertEquals(1, bettingAuthority.getLoggerList().size());
+
     }
 
     /**
