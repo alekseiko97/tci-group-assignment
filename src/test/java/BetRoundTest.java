@@ -259,5 +259,19 @@ public class BetRoundTest {
        // Assert.assertEquals("List of Bets is not returned correctly", expectedResult, actualResult);
     }
 
-
+    /**
+     * This test should return a winning amount when a round ends
+     * Test is created to test method double getWinningAmount()
+     */
+    @Test
+    public void winningAmountShouldBeReturnedWhenARoundEndsSuccessful(){
+        //arrange
+        BetRound round = new BetRound(bettingAuthorityMock);
+        Bet winningBet = mock(Bet.class);
+        //act
+        round.endRound(winningBet);
+        double actualWinningAmount = round.getWinningAmount();
+        //assert
+        Assert.assertNotEquals(0, actualWinningAmount);
+    }
 }
