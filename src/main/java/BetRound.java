@@ -23,7 +23,9 @@ public class BetRound {
     public LocalDateTime startRound(String token) {
         if (token == null || token.isEmpty()) { throw new IllegalArgumentException("Token cannot be null or empty"); }
         // log
-        bettingAuthority.logBettingRound(UUID.randomUUID().toString(),LocalDateTime.now());
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStamp = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
+        bettingAuthority.logBettingRound(UUID.randomUUID().toString(), timeStamp);
         // change the status
         isRunning = true;
         return LocalDateTime.now();
@@ -32,8 +34,7 @@ public class BetRound {
     public Bet getWinningBet() {
         Random rand = new Random();
         int randomIndex = rand.nextInt(bets.size()-1);
-        Bet winningBet = bets.get(randomIndex);
-        return winningBet;
+        return bets.get(randomIndex);
     }
 
     public LocalDateTime endRound(Bet winingBet) {

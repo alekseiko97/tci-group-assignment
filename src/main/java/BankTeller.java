@@ -22,7 +22,7 @@ public class BankTeller {
          *
          * @param c
          * @param amount
-         *
+         * If the amount <=0, the method will throw IllegalArgumentException
          */
         public static void updateCardBalance(Card c, double amount) {
 
@@ -34,7 +34,7 @@ public class BankTeller {
                   throw new IllegalArgumentException ("Can not withdraw more than current balance of the card");
 
             cashToCard.put(c, cashToCard.get(c) + amount);
-            }
+        }
 
         public static Card issueCard() {
             Card card = new Card();

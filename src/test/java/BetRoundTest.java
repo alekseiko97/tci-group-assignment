@@ -29,8 +29,7 @@ public class BetRoundTest {
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
-        //String token = mock(String.class);
-        String token = "TestToken";
+        String token = UUID.randomUUID().toString();
 
         //act
         LocalDateTime actualResult = round.startRound(token);
@@ -47,7 +46,6 @@ public class BetRoundTest {
     @Test
     public void endingBetRoundShouldReturnDateSuccessful(){
         //arrange
-        //BettingAuthority bettingAuthority = new BettingAuthority();
         BetRound round = new BetRound(bettingAuthorityMock);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
@@ -94,12 +92,11 @@ public class BetRoundTest {
         BettingAuthority bettingAuthority = new BettingAuthority();
 
         BetRound round = new BetRound(bettingAuthority);
-        Double expectedResult = (Double) 200.0;
         //act
         round.placeBet(bet);
         List<Bet> actualBetListInRound = round.getListOfBets();
         //assert
-        Assert.assertNotNull(actualBetListInRound);
+        Assert.assertEquals(1,actualBetListInRound.size());
     }
 
     /**
@@ -130,7 +127,7 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-        Casino casino = new Casino(new BettingAuthority());
+        Casino casino = new Casino(bettingAuthorityMock);
         BetRound betRound = casino.createBetRound();
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
 
@@ -192,20 +189,21 @@ public class BetRoundTest {
      * Test should be passed when logBettingRound from BettingAuthority is being called from BetRound-> startRound
      * this test is created to test void logBettingRound(BetRound betRound, String token)
      */
-//    @Test
-//    public void logBettingRoundSuccessfullyFromStartRound(){
-//        // arrange
-//        BettingAuthority bettingAuthority = mock(BettingAuthority.class);
-//        BetRound round = new BetRound(bettingAuthority);
-//        String token = mock(String.class);
-//        //String token = "tokenTest";
-//
-//        // act
-//        round.startRound(token);
-//
-//        // assert
-//        verify(bettingAuthority, times(1)).logBettingRound(UUID.randomUUID().toString(), LocalDateTime.now());
-//    }
+    @Test
+    public void logBettingRoundSuccessfullyFromStartRound(){
+        // arrange
+        BettingAuthority bettingAuthority = new BettingAuthority();
+        BetRound round = new BetRound(bettingAuthority);
+        String  token = UUID.randomUUID().toString();
+        LocalDateTime currentTime = LocalDateTime.now();
+        String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
+        // act
+        round.startRound(token);
+        // assert
+        System.out.println(bettingAuthority.getLoggerList().size());
+        Assert.assertEquals(1, bettingAuthority.getLoggerList().size());
+
+    }
 
     /**
      * Test should be passed when logEnd from BettingAuthority is being called from BetRound-> endRound
