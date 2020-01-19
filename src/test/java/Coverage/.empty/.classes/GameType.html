@@ -97,17 +97,17 @@
 <i>23</i>&nbsp;        return machineID;
 <i>24</i>&nbsp;    }
 <i>25</i>&nbsp;
-<i>26</i>&nbsp;    public double placeBet(Card c, BetRound betRound, Bet bet) throws Exception {
+<i>26</i>&nbsp;    public void  placeBet(Card c, BetRound betRound, Bet bet) throws Exception {
 <i>27</i>&nbsp;        if (bet.getInAmount() &lt;= 0) throw new IllegalArgumentException(&quot;Bet amount must be greater than zero&quot;);
 <i>28</i>&nbsp;
 <i>29</i>&nbsp;        // if card has sufficient amount to place a bet
 <i>30</i>&nbsp;        if ((BankTeller.Cashier.checkCardBalance(c, bet.getInAmount()))) {
 <i>31</i>&nbsp;            BankTeller.Cashier.updateCardBalance(c, -bet.getInAmount());
-<i>32</i>&nbsp;            return betRound.placeBet(bet);
-<i>33</i>&nbsp;        }
-<i>34</i>&nbsp;
-<i>35</i>&nbsp;
-<i>36</i>&nbsp;        throw new Exception(&quot;Card doesn&#39;t have enough balance to place a bet&quot;);
+<i>32</i>&nbsp;            betRound.placeBet(bet);
+<i>33</i>&nbsp;        } else {
+<i>34</i>&nbsp;            throw new Exception(&quot;Card doesn&#39;t have enough balance to place a bet&quot;);
+<i>35</i>&nbsp;        }
+<i>36</i>&nbsp;
 <i>37</i>&nbsp;    }
 <i>38</i>&nbsp;
 <i>39</i>&nbsp;
@@ -124,7 +124,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-01-19 14:08</div>
+    <div style="float:right;">generated on 2020-01-19 16:34</div>
 </div>
 </body>
 </html>

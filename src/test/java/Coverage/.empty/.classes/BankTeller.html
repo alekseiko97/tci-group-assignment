@@ -35,22 +35,41 @@
   Line, %
 </th>
 </tr>
-  <tr>
-    <td class="name">BankTeller$Cashier</td>
+<tr>
+  <td class="name">BankTeller</td>
 <td class="coverageStat">
   <span class="percent">
-    71.4%
+    0%
   </span>
   <span class="absValue">
-    (5/ 7)
+    (0/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    84.2%
+    0%
   </span>
   <span class="absValue">
-    (16/ 19)
+    (0/ 1)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BankTeller$Cashier</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.7%
+  </span>
+  <span class="absValue">
+    (18/ 19)
   </span>
 </td>
   </tr>
@@ -58,18 +77,18 @@
   <td class="name"><strong>total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    71.4%
+    75%
   </span>
   <span class="absValue">
-    (5/ 7)
+    (6/ 8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    84.2%
+    90%
   </span>
   <span class="absValue">
-    (16/ 19)
+    (18/ 20)
   </span>
 </td>
 </tr>
@@ -82,7 +101,7 @@
 <div class="sourceCode"><i>1</i>&nbsp;import java.time.LocalDateTime;
 <i>2</i>&nbsp;import java.util.HashMap;
 <i>3</i>&nbsp;
-<i>4</i>&nbsp;public class BankTeller {
+<b class="nc"><i>4</i>&nbsp;public class BankTeller {</b>
 <b class="nc"><i>5</i>&nbsp;    public static class Cashier {</b>
 <i>6</i>&nbsp;
 <b class="fc"><i>7</i>&nbsp;        private static HashMap&lt;Card, Double&gt; cashToCard = new HashMap&lt;&gt;();</b>
@@ -106,17 +125,17 @@
 <i>25</i>&nbsp;         * If the amount &lt;=0, the method will throw IllegalArgumentException
 <i>26</i>&nbsp;         */
 <i>27</i>&nbsp;        public static void updateCardBalance(Card c, double amount) {
-<b class="fc"><i>28</i>&nbsp;            if(amount &lt;= 0){</b>
-<b class="fc"><i>29</i>&nbsp;                throw new IllegalArgumentException (&quot;Insufficient amount&quot;);</b>
-<i>30</i>&nbsp;            }
-<i>31</i>&nbsp;            else{
-<b class="fc"><i>32</i>&nbsp;                if (cashToCard.containsKey(c)) {</b>
-<b class="fc"><i>33</i>&nbsp;                    cashToCard.put(c, cashToCard.get(c) + amount);</b>
-<i>34</i>&nbsp;                } else { // if the card was not in the hash map
-<b class="fc"><i>35</i>&nbsp;                    cashToCard.put(c, amount);</b>
-<i>36</i>&nbsp;                }
-<i>37</i>&nbsp;            }
-<b class="fc"><i>38</i>&nbsp;        }</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;            if(!cashToCard.containsKey(c)){</b>
+<b class="fc"><i>30</i>&nbsp;                throw new NullPointerException(&quot;Cashier does not know about this Card&quot;);</b>
+<i>31</i>&nbsp;            }
+<i>32</i>&nbsp;
+<b class="fc"><i>33</i>&nbsp;            if(cashToCard.get(c) + amount &lt; 0)</b>
+<b class="fc"><i>34</i>&nbsp;                  throw new IllegalArgumentException (&quot;Can not withdraw more than current balance of the card&quot;);</b>
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;            cashToCard.put(c, cashToCard.get(c) + amount);</b>
+<b class="fc"><i>37</i>&nbsp;        }</b>
+<i>38</i>&nbsp;
 <i>39</i>&nbsp;        public static Card issueCard() {
 <b class="fc"><i>40</i>&nbsp;            Card card = new Card();</b>
 <i>41</i>&nbsp;            // initial amount is 0.0
@@ -132,8 +151,8 @@
 <i>51</i>&nbsp;         * @param card
 <i>52</i>&nbsp;         */
 <i>53</i>&nbsp;        public static void resetCard (Card card) {
-<b class="nc"><i>54</i>&nbsp;            card.returnCardToCashier();</b>
-<b class="nc"><i>55</i>&nbsp;        }</b>
+<b class="fc"><i>54</i>&nbsp;            card.returnCardToCashier();</b>
+<b class="fc"><i>55</i>&nbsp;        }</b>
 <i>56</i>&nbsp;
 <i>57</i>&nbsp;        /**
 <i>58</i>&nbsp;         * @return the balance of a card
@@ -149,7 +168,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-01-19 14:08</div>
+    <div style="float:right;">generated on 2020-01-19 16:34</div>
 </div>
 </body>
 </html>

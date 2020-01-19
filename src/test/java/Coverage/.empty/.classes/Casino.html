@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (8/ 8)
+    (9/ 9)
   </span>
 </td>
 </tr>
@@ -85,21 +85,26 @@
 <i>11</i>&nbsp;    }
 <i>12</i>&nbsp;
 <i>13</i>&nbsp;    public String requestUniqueToken(String betRoundID) {
-<b class="fc"><i>14</i>&nbsp;        if (betRoundID == null || betRoundID.isEmpty()) throw new IllegalArgumentException(&quot;Bet round id can&#39;t be null or empty&quot;);</b>
-<b class="fc"><i>15</i>&nbsp;        return bettingAuthority.getUniqueToken(betRoundID);</b>
-<i>16</i>&nbsp;    }
-<i>17</i>&nbsp;
-<i>18</i>&nbsp;    public Integer requestRandomWholeNumber(String token) {
-<b class="fc"><i>19</i>&nbsp;        if (token == null || token.isEmpty()) throw new IllegalArgumentException(&quot;Token can&#39;t be null or empty&quot;);</b>
-<b class="fc"><i>20</i>&nbsp;        return bettingAuthority.getRandomWholeNumber(token);</b>
+<b class="fc"><i>14</i>&nbsp;        if (betRoundID == null || betRoundID.isEmpty())</b>
+<i>15</i>&nbsp;        {
+<b class="fc"><i>16</i>&nbsp;            throw new IllegalArgumentException(&quot;Bet round id can&#39;t be null or empty&quot;);</b>
+<i>17</i>&nbsp;        }
+<i>18</i>&nbsp;        else {
+<b class="fc"><i>19</i>&nbsp;            return this.bettingAuthority.getUniqueToken(betRoundID);</b>
+<i>20</i>&nbsp;        }
 <i>21</i>&nbsp;    }
-<i>22</i>&nbsp;}
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    public Integer requestRandomWholeNumber(String token) {
+<b class="fc"><i>24</i>&nbsp;        if (token == null || token.isEmpty()) throw new IllegalArgumentException(&quot;Token can&#39;t be null or empty&quot;);</b>
+<b class="fc"><i>25</i>&nbsp;        return bettingAuthority.getRandomWholeNumber(token);</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-01-19 14:08</div>
+    <div style="float:right;">generated on 2020-01-19 16:34</div>
 </div>
 </body>
 </html>
