@@ -31,6 +31,21 @@ public class BetTest {
     }
 
     /**
+     * This test should be passed when the betAmount is returned from a bet
+     * Test is created to test method double getInAmount()
+     */
+    @Test
+    public void betAmoundOfABetShouldBeReturnedSuccessful() {
+        //arrange
+        Bet bet = new Bet(20.0);
+        //act
+        double actualBetAmount = bet.getInAmount();
+
+        //assert
+        Assert.assertNotEquals(0, actualBetAmount);
+    }
+
+    /**
      * This test should be passed when betId of a bet is returned
      * Test is created to test the method UUID getBetId()
      */
