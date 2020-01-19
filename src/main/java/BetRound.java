@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class BetRound {
@@ -8,6 +9,7 @@ public class BetRound {
     private String token;
     private List<Bet> bets;
     private boolean isRunning;
+    private double winningAmount;
     private BettingAuthority bettingAuthority;
 
     public BetRound(BettingAuthority bettingAuthority) {
@@ -15,6 +17,7 @@ public class BetRound {
         this.bets = new ArrayList<Bet>();
         this.isRunning = false;
         this.bettingAuthority = bettingAuthority;
+        this.winningAmount = 0.0;
     }
 
     public LocalDateTime startRound(String token) {
@@ -28,18 +31,33 @@ public class BetRound {
         return LocalDateTime.now();
     }
 
+    public Bet getWinningBet() {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(bets.size()-1);
+        return bets.get(randomIndex);
+    }
+
     public LocalDateTime endRound(Bet winingBet) {
+        if(!bets.contains(winingBet)){
+            throw new IllegalArgumentException("This bet has not been placed in this round!");
+        }
         //BetRound round, Bet winningBet, LocalDateTime now
         LocalDateTime currentTime = LocalDateTime.now();
         String timeStamp = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         isRunning = false;
         bettingAuthority.logEnd(this, winingBet, timeStamp);
+        for(Bet bet : bets){
+            winningAmount += bet.getInAmount();
+        }
         return LocalDateTime.now();
     }
 
-    public Double placeBet(Bet bet) {
+    public double getWinningAmount(){
+        return this.winningAmount;
+    }
+
+    public void placeBet(Bet bet) {
         this.bets.add(bet);
-        return (Double) bet.getInAmount();
     }
 
     public void setToken(String token){

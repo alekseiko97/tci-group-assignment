@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BankTeller</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">&lt;empty package name&gt;</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BankTeller (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BankTeller</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BankTeller$Cashier</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.7%
+  </span>
+  <span class="absValue">
+    (18/ 19)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (18/ 20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;import java.time.LocalDateTime;
+<i>2</i>&nbsp;import java.util.HashMap;
+<i>3</i>&nbsp;
+<b class="nc"><i>4</i>&nbsp;public class BankTeller {</b>
+<b class="nc"><i>5</i>&nbsp;    public static class Cashier {</b>
+<i>6</i>&nbsp;
+<b class="fc"><i>7</i>&nbsp;        private static HashMap&lt;Card, Double&gt; cashToCard = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>8</i>&nbsp;        public static BettingAuthority bettingAuthority = new BettingAuthority();</b>
+<b class="fc"><i>9</i>&nbsp;        public static boolean isLogCardHandedOut = false;</b>
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;        /**
+<i>12</i>&nbsp;         * @param c
+<i>13</i>&nbsp;         * @param betAmount
+<i>14</i>&nbsp;         * @return false if amount on the card is less then betAmount
+<i>15</i>&nbsp;         * @return true if amount on the card is more then betAmount
+<i>16</i>&nbsp;         */
+<i>17</i>&nbsp;        public static boolean checkCardBalance(Card c, double betAmount) {
+<b class="fc"><i>18</i>&nbsp;            return cashToCard.get(c) &gt;= betAmount;</b>
+<i>19</i>&nbsp;        }
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;        /**
+<i>22</i>&nbsp;         *
+<i>23</i>&nbsp;         * @param c
+<i>24</i>&nbsp;         * @param amount
+<i>25</i>&nbsp;         * If the amount &lt;=0, the method will throw IllegalArgumentException
+<i>26</i>&nbsp;         */
+<i>27</i>&nbsp;        public static void updateCardBalance(Card c, double amount) {
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;            if(!cashToCard.containsKey(c)){</b>
+<b class="fc"><i>30</i>&nbsp;                throw new NullPointerException(&quot;Cashier does not know about this Card&quot;);</b>
+<i>31</i>&nbsp;            }
+<i>32</i>&nbsp;
+<b class="fc"><i>33</i>&nbsp;            if(cashToCard.get(c) + amount &lt; 0)</b>
+<b class="fc"><i>34</i>&nbsp;                  throw new IllegalArgumentException (&quot;Can not withdraw more than current balance of the card&quot;);</b>
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;            cashToCard.put(c, cashToCard.get(c) + amount);</b>
+<b class="fc"><i>37</i>&nbsp;        }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        public static Card issueCard() {
+<b class="fc"><i>40</i>&nbsp;            Card card = new Card();</b>
+<i>41</i>&nbsp;            // initial amount is 0.0
+<b class="fc"><i>42</i>&nbsp;            cashToCard.put(card, 0.0);</b>
+<b class="fc"><i>43</i>&nbsp;            bettingAuthority.logCardHandedOut(card, String.valueOf(LocalDateTime.now()));</b>
+<b class="fc"><i>44</i>&nbsp;            isLogCardHandedOut=true;</b>
+<b class="fc"><i>45</i>&nbsp;            return card;</b>
+<i>46</i>&nbsp;        }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;        /**
+<i>49</i>&nbsp;         * When the method resetCard is called, it removed card from cashToCard list
+<i>50</i>&nbsp;         * And method returnCardToCashier() in Card class will be called.
+<i>51</i>&nbsp;         * @param card
+<i>52</i>&nbsp;         */
+<i>53</i>&nbsp;        public static void resetCard (Card card) {
+<b class="fc"><i>54</i>&nbsp;            card.returnCardToCashier();</b>
+<b class="fc"><i>55</i>&nbsp;        }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;        /**
+<i>58</i>&nbsp;         * @return the balance of a card
+<i>59</i>&nbsp;         */
+<i>60</i>&nbsp;        public static Double getCardBalance(Card card) {
+<b class="fc"><i>61</i>&nbsp;           return cashToCard.get(card);</b>
+<i>62</i>&nbsp;        }
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;}
+<i>65</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-19 16:34</div>
+</div>
+</body>
+</html>
