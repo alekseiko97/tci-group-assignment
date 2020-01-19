@@ -26,20 +26,16 @@ public class BankTeller {
          */
         public static void updateCardBalance(Card c, double amount) {
 
-                if (cashToCard.containsKey(c)) {
-                    if (amount>0)//when amount is positive then add the amount in the card
-                    {
-                        cashToCard.put(c, cashToCard.get(c) + amount);
-                    }
-                    else {//when amount is negative then deduct the amount from the card
-                        cashToCard.put(c, cashToCard.get(c) - amount);
-                    }
-                } else { // if the card was not in the hash map
-                    cashToCard.put(c, amount);
-                }
+            if(!cashToCard.containsKey(c)){
+                throw new NullPointerException("Cashier does not know about this Card");
+            }
 
+            if(cashToCard.get(c) + amount < 0)
+                  throw new IllegalArgumentException ("Can not withdraw more than current balance of the card");
 
+            cashToCard.put(c, cashToCard.get(c) + amount);
         }
+
         public static Card issueCard() {
             Card card = new Card();
             // initial amount is 0.0
@@ -56,10 +52,12 @@ public class BankTeller {
          */
         public static void resetCard (Card card) {
             card.returnCardToCashier();
-            cashToCard.remove(card);
         }
 
-        public static double getCardBalance(Card card) {
+        /**
+         * @return the balance of a card
+         */
+        public static Double getCardBalance(Card card) {
            return cashToCard.get(card);
         }
     }

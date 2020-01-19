@@ -9,8 +9,6 @@ import java.util.UUID;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 
@@ -48,18 +46,38 @@ public class BetRoundTest {
     @Test
     public void endingBetRoundShouldReturnDateSuccessful(){
         //arrange
-        BettingAuthority bettingAuthority = new BettingAuthority();
-        BetRound round = new BetRound(bettingAuthority);
+        BetRound round = new BetRound(bettingAuthorityMock);
         DayOfWeek expectedDate = LocalDateTime.now().getDayOfWeek();
         Month expectedMonth = LocalDateTime.now().getMonth();
         int expectedHour = LocalDateTime.now().getHour();
-        Bet winningBet=new Bet(100.0);
+        Bet betToPlaceInRound = new Bet(20.0);
+        round.placeBet(betToPlaceInRound);
         //act
-        LocalDateTime actualResult = round.endRound(winningBet);
+        LocalDateTime actualResult = round.endRound(betToPlaceInRound);
         //assert
         Assert.assertEquals(expectedDate,actualResult.getDayOfWeek());
         Assert.assertEquals(expectedMonth, actualResult.getMonth());
         Assert.assertEquals(expectedHour, actualResult.getHour());
+    }
+
+    /**
+     * This test should return a winning bet from a round
+     * Test is created to test method Bet getWinningBet()
+     */
+    @Test
+    public void aWinningBetShouldBeReturnedSuccessful(){
+        //arrange
+        BetRound round = new BetRound(bettingAuthorityMock);
+        Bet bet1ToPlaceInRound = new Bet(20.0);
+        Bet bet2ToPlaceInRound = new Bet(10.0);
+        Bet bet3ToPlaceInRound = new Bet(5.0);
+        round.placeBet(bet1ToPlaceInRound);
+        round.placeBet(bet2ToPlaceInRound);
+        round.placeBet(bet3ToPlaceInRound);
+        //act
+        Bet actualWinningBet = round.getWinningBet();
+        //assert
+        Assert.assertNotNull(actualWinningBet);
     }
 
 
@@ -68,17 +86,17 @@ public class BetRoundTest {
      * This test is created to test double placeBet(Bet bet, double betAmount) method
      */
     @Test
-    public void placeBetInBetRoundShouldReturnBetValueSuccessful(){
+    public void placeBetInBetRoundShouldBeSuccessful(){
        //arrange
         Bet bet = new Bet(AMOUNT);
         BettingAuthority bettingAuthority = new BettingAuthority();
 
         BetRound round = new BetRound(bettingAuthority);
-        Double expectedResult = (Double) 20.0;
         //act
-        Double actualResult = round.placeBet(bet);
+        round.placeBet(bet);
+        List<Bet> actualBetListInRound = round.getListOfBets();
         //assert
-        Assert.assertEquals("Bet amount is not returned correctly when a bet is placed", expectedResult, actualResult);
+        Assert.assertEquals(1,actualBetListInRound.size());
     }
 
     /**
@@ -109,13 +127,9 @@ public class BetRoundTest {
     @Test
     public void bettingRoundCannotBeStartedWithoutObtainingUniqueToken() {
         // arrange
-//        Casino casino = new Casino(bettingAuthorityMock);
         Casino casino = new Casino(new BettingAuthority());
         BetRound betRound = casino.createBetRound();
-        System.out.println("betRound.getBetRoundID()"+betRound.getBetRoundID());
-
         String token = casino.requestUniqueToken(betRound.getBetRoundID());
-        System.out.println(token);
 
         // act
         betRound.startRound(token);
@@ -187,7 +201,7 @@ public class BetRoundTest {
         round.startRound(token);
         // assert
         System.out.println(bettingAuthority.getLoggerList().size());
-        assertEquals(1, bettingAuthority.getLoggerList().size());
+        Assert.assertEquals(1, bettingAuthority.getLoggerList().size());
 
     }
 
@@ -200,13 +214,14 @@ public class BetRoundTest {
         //arrange
         BettingAuthority bettingAuthority = mock(BettingAuthority.class);
         BetRound round = new BetRound(bettingAuthority);
-        Bet winningBet=new Bet(100.0);
+        Bet betToPlaceInRound = new Bet(20.0);
+        round.placeBet(betToPlaceInRound);
         LocalDateTime currentTime = LocalDateTime.now();
         String timeStampTest = Integer.toString(currentTime.getDayOfMonth()) + currentTime.getMonth() + currentTime.getYear();
         //act
-        round.endRound(winningBet);
+        round.endRound(betToPlaceInRound);
         //assert
-        verify(bettingAuthority, times(1)).logEnd(round, winningBet, timeStampTest);
+        verify(bettingAuthority, times(1)).logEnd(round, betToPlaceInRound, timeStampTest);
     }
 
     /*
@@ -262,5 +277,22 @@ public class BetRoundTest {
         // assert
         Assert.assertNotSame(value1, value2);
        // Assert.assertEquals("List of Bets is not returned correctly", expectedResult, actualResult);
+    }
+
+    /**
+     * This test should return a winning amount when a round ends
+     * Test is created to test method double getWinningAmount()
+     */
+    @Test
+    public void winningAmountShouldBeReturnedWhenARoundEndsSuccessful(){
+        //arrange
+        BetRound round = new BetRound(bettingAuthorityMock);
+        Bet betToPlaceInRound = new Bet(20.0);
+        round.placeBet(betToPlaceInRound);
+        //act
+        round.endRound(betToPlaceInRound);
+        double actualWinningAmount = round.getWinningAmount();
+        //assert
+        Assert.assertNotEquals(0, actualWinningAmount);
     }
 }

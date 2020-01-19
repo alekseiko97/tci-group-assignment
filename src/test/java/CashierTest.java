@@ -35,11 +35,11 @@ public class CashierTest {
     @Test
     public void aCardWithInsufficientBalanceShouldReturnFalse(){
         //arrange
-        Card c = BankTeller.Cashier.issueCard();
+        Card cardToTest = BankTeller.Cashier.issueCard();
 
         //act
-        BankTeller.Cashier.updateCardBalance(c, 50);
-        boolean actualResult = BankTeller.Cashier.checkCardBalance(c, 50);
+        BankTeller.Cashier.updateCardBalance(cardToTest, 50);
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 50);
 
         //assert
         Assert.assertTrue(actualResult);
@@ -52,9 +52,9 @@ public class CashierTest {
     @Test
     public void aCardWithSufficientBalanceShouldReturnFalse(){
         //arrange
-
+        Card cardToTest = BankTeller.Cashier.issueCard();
         //act
-        boolean actualResult = BankTeller.Cashier.checkCardBalance(BankTeller.Cashier.issueCard(), 200.0);
+        boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 200.0);
 
         //assert
         Assert.assertFalse( actualResult);
@@ -87,6 +87,21 @@ public class CashierTest {
     }
 
     /**
+     * This test should be passed when updating the credit on the card which is not in the card list with the sufficient amount
+     * This test is created to test void updateCardCredit(Card c, double amount) method
+     */
+    @Test
+    public void updateANewCardBalanceWhichIsNotInTheCardListWithSufficientAmountShouldBeSuccessful(){
+        //arrange
+        Card cardNotInTheList = BankTeller.Cashier.issueCard();
+        Double expectedBalanceAfterUpdate = 20.0;
+        //act
+        BankTeller.Cashier.updateCardBalance(cardNotInTheList, 20);
+        Double actualBalanceAfterUpdate = BankTeller.Cashier.getCardBalance(cardNotInTheList);
+        //assert
+        Assert.assertEquals("Update the balance for a card which is not in the card list is not correct", expectedBalanceAfterUpdate, actualBalanceAfterUpdate);
+    }
+    /**
      * This test should be passed when a card is handed back to the cashier, the method returnCardToCashier()
      * is called from Card class
      * This test is created to test void resetCard(Card c) method
@@ -112,6 +127,24 @@ public class CashierTest {
         Card card = BankTeller.Cashier.issueCard();
         //assert
         assertEquals(true, BankTeller.Cashier.isLogCardHandedOut);
+    }
+
+    /**
+     * Test should be passed when a cashier wants to get the balance of a card
+     * This test is created to test  Double getCardBalance(Card card) method
+     */
+    @Test
+    public void balanceOfACardShouldBeGetSuccessful(){
+        //arrange
+        Card cardToTest = BankTeller.Cashier.issueCard();
+        BankTeller.Cashier.updateCardBalance(cardToTest, 20);
+        Double expectedBalance = 20.0;
+
+        //act
+        Double actualBalance = BankTeller.Cashier.getCardBalance(cardToTest);
+
+        //assert
+        Assert.assertEquals("Balance of a card is not returned correctly!", expectedBalance, actualBalance);
     }
 
 }

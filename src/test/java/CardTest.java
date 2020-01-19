@@ -13,7 +13,7 @@ public class CardTest {
 
     @Before
     public void before()  {
-        card = new Card();
+        card = BankTeller.Cashier.issueCard();
         betRound = new BetRound(mock(BettingAuthority.class));
         card.connectToGamingMachine(DUMMY_GAME_TYPE);
         BankTeller.Cashier.updateCardBalance(card, 200);
