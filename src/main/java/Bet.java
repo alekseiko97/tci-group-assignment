@@ -17,9 +17,8 @@ public class Bet {
 
 
     public Bet(double inAmount) {
-
-        this.inAmount = inAmount;
-        this.betId=UUID.randomUUID();
-        this.timestamp=LocalDateTime.now();
+            this.inAmount = inAmount;
+            this.betId=UUID.randomUUID();
+            this.timestamp=LocalDateTime.now();
     }
 }
