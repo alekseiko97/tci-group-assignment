@@ -1,4 +1,4 @@
-import javafx.scene.chart.PieChart;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -21,16 +22,15 @@ public class BettingAuthorityTest {
     private String token;
     private String timestamp;
     private static int countOfLogs;
-    private Casino casino;
     private BetRound betRound;
     private Bet bet;
     private Card card;
+
     //setup method will be executed first before test
     @Before
     public void setUp(){
         countOfLogs=0;
         bettingAuthority = new BettingAuthority();
-        casino = mock(Casino.class);
         token = UUID.randomUUID().toString();
         timestamp = LocalDateTime.now().toString();
         betRound = mock(BetRound.class);
@@ -110,13 +110,33 @@ public class BettingAuthorityTest {
         assertThat(result, containsString(token));
     }
     /**
-     * This test should succeed getRandomWholeNumber returns an int random number
+     * This test should when getRandomWholeNumber returns an int random number
      * This test is created to test Integer getRandomWholeNumber(String token)
      */
 
     @Test
     public void gettingRandomIntegerNumberFromBettingAuthority() {
-        throw new NotImplementedException();
+        //arrange
+        //act
+        int result = bettingAuthority.getRandomWholeNumber(token);
+        //assert
+        assertThat(result, instanceOf(Integer.class));
+
     }
+
+    /**
+     * This test should when logs are getting added in the list named loggerList returns listOfString
+     * This test is created to test List<String> getLoggerList()
+     */
+    @Test
+    public void gettingListOfLogsFromBettingAuthority() {
+        //arrange
+        //act
+        List<String> result = bettingAuthority.getLoggerList();
+        //assert
+        assertEquals(countOfLogs, result.size());
+
+    }
+
 
 }
