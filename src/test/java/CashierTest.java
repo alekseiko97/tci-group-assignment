@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -8,6 +9,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CashierTest {
+    private Card cardToTest;
+
+    @Before
+    public void before(){
+        cardToTest = BankTeller.Cashier.issueCard();
+    }
     /**
      * This test should be passed when a new card is given to the gambler successfully by the cashier
      * This is created to test Card issueCard() method
@@ -35,8 +42,6 @@ public class CashierTest {
     @Test
     public void aCardWithInsufficientBalanceShouldReturnFalse(){
         //arrange
-        Card cardToTest = BankTeller.Cashier.issueCard();
-
         //act
         BankTeller.Cashier.updateCardBalance(cardToTest, 50);
         boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 50);
@@ -52,7 +57,6 @@ public class CashierTest {
     @Test
     public void aCardWithSufficientBalanceShouldReturnFalse(){
         //arrange
-        Card cardToTest = BankTeller.Cashier.issueCard();
         //act
         boolean actualResult = BankTeller.Cashier.checkCardBalance(cardToTest, 200.0);
 
@@ -67,9 +71,8 @@ public class CashierTest {
     @Test(expected = IllegalArgumentException.class)
     public void updateCardBalanceWithInsufficientAmountShouldThrowException(){
         //arrange
-        Card c = BankTeller.Cashier.issueCard();
         //act
-        BankTeller.Cashier.updateCardBalance(c, -2);
+        BankTeller.Cashier.updateCardBalance(cardToTest, -2);
         //assert
     }
 
@@ -80,9 +83,8 @@ public class CashierTest {
     @Test
     public void updateCardBalanceWithSufficientAmountShouldBeSuccessful(){
         //arrange
-        Card c = BankTeller.Cashier.issueCard();
         //act
-        BankTeller.Cashier.updateCardBalance(c, 20);
+        BankTeller.Cashier.updateCardBalance(cardToTest, 20);
         //assert
     }
 
@@ -136,7 +138,6 @@ public class CashierTest {
     @Test
     public void balanceOfACardShouldBeGetSuccessful(){
         //arrange
-        Card cardToTest = BankTeller.Cashier.issueCard();
         BankTeller.Cashier.updateCardBalance(cardToTest, 20);
         Double expectedBalance = 20.0;
 

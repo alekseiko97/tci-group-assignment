@@ -24,9 +24,9 @@ public class BetTest {
     @Test
     public void betPlacedWithSufficientAmountShouldThrowException(){
         //arrange
-        double insufficientBetAmount = 20;
+        double sufficientBetAmount = 20;
         //act
-        Bet bet = new Bet(insufficientBetAmount);
+        Bet bet = new Bet(sufficientBetAmount);
         //assert
     }
 
@@ -35,7 +35,7 @@ public class BetTest {
      * Test is created to test method double getInAmount()
      */
     @Test
-    public void betAmoundOfABetShouldBeReturnedSuccessful() {
+    public void betAmountOfABetShouldBeReturnedSuccessful() {
         //arrange
         Bet bet = new Bet(20.0);
         //act

@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -6,14 +7,19 @@ import static org.mockito.Mockito.mock;
 
 public class CasinoTest {
 
-    BettingAuthority bettingAuthority = new BettingAuthority();
-    Casino casino = new Casino(bettingAuthority);
+    BettingAuthority bettingAuthority;
+    Casino casino;
+
+    @Before
+    public void before(){
+        bettingAuthority = new BettingAuthority();
+        casino = new Casino(bettingAuthority);
+    }
 
     /**
      * This test should be successful if a new betting round object has been created without throwing any *exception
      * This test is intended to test the behavior of the method BetRound createBetRound()
      */
-
     @Test
     public void bettingRoundCreationShouldBeSuccessful() {
         // arrange & act
@@ -28,7 +34,6 @@ public class CasinoTest {
      * Valid betting round ID should be provided as a parameter
      * This test is intended to test the behavior of the method string getUniqueToken(UUID betRoundID)
      */
-
     @Test
     public void uniqueTokenCanBeObtainedFromAuthority() {
         // arrange
@@ -45,7 +50,6 @@ public class CasinoTest {
      * This test will succeed if the IllegalArgumentException is thrown when invalid betRoundID is given
      * This is to test the behavior of the method string getUniqueToken(UUID betRoundID)
      */
-
     @Test (expected = IllegalArgumentException.class)
     public void requestingTokenWithInvalidBettingRoundIDShouldThrowAnException() {
         // act
@@ -58,7 +62,6 @@ public class CasinoTest {
      * Valid token must be provided
      * This is to test the behavior of the method Integer requestRandomWholeNumber(String token)
      */
-
     @Test
     public void randomWholeNumberCanBeObtainedFromAuthority() {
         // arrange
@@ -76,7 +79,6 @@ public class CasinoTest {
      * This test will succeed if IllegalArgumentException is thrown when invalid token is passed
      * This is to test the behavior of the method Integer requestRandomWholeNumber(String token)
      */
-
     @Test (expected = IllegalArgumentException.class)
     public void requestingRandomNumberWithInvalidTokenShouldThrowAnException() {
         // act
