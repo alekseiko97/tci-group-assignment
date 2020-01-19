@@ -51,6 +51,20 @@ public class CashierTest {
     }
 
     /**
+     * This test should throw an exception when update a card which Cashier does not know about it
+     * Test is created to test void updateCardBalance(Card c, double amount)
+     */
+    @Test(expected = NullPointerException.class)
+    public void updateBalanceForAnUnKnownCardShouldThrownException(){
+        //arrange
+        Card unKnownCard = new Card();
+
+        //act
+        BankTeller.Cashier.updateCardBalance(unKnownCard, 20.0);
+        //assert
+    }
+
+    /**
      * This test should be passed when a card has the amount more then the betAmount
      * This is created to test boolean checkBalance(Card card) method
      */
